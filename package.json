@@ -29,7 +29,8 @@
 		"check-for-dupes": "npx jscpd ./",
 		"test": "vitest run",
 		"test:e2e": "playwright test",
-		"test:performance": "lighthouse http://localhost:4173/ --view --output html --output-path ./lighthouse-report/lighthouse-report.html"
+		"test:performance": "lighthouse http://localhost:4173/ --view --output html --output-path ./lighthouse-report/lighthouse-report.html",
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"react": "^18.3.1",
