@@ -1,0 +1,51 @@
+:root {
+	/* Base colors */
+	--color-primary-lch: 47.71% 0.233 282.21;
+	--color-bright-primary-lch: 73.19% 0.141 279.64;
+
+	/* White */
+	--white: oklch(98.18% 0 0);
+
+	/* Purple */
+	--purple: oklch(var(--color-primary-lch));
+	--bright-purple: oklch(var(--color-bright-primary-lch));
+	--purple-hover-color: oklch(79.27% 0.115 292.76);
+	--bright-purple-40p: oklch(var(--color-bright-primary-lch) / 40%);
+	--light-bright-purple: oklch(89.31% 0.053 282.94);
+	--light-purple: oklch(94.8% 0.0276 295.0409);
+
+	/* Colors */
+	--color-primary: var(--purple);
+	--color-primary-bright-purple: var(--bright-purple);
+	--color-primary-variant: var(--purple-hover-color);
+	--color-primary-light: var(--light-purple);
+
+	/* Text */
+	--text-color-light: var(--white);
+	--text-color-dark: oklch(22% 0.02 251.7);
+	--text-color: light-dark(var(--text-color-dark), var(--text-color-light));
+
+	/* Backgrounds */
+	--background-light: var(--white);
+	--background-dark: oklch(26.03% 0 0);
+	--background: light-dark(var(--background-light), var(--background-dark));
+	--background-link: light-dark(
+		var(--background-dark),
+		var(--background-light)
+	);
+
+	/* Borders */
+	--border-color: light-dark(var(--border-dark), var(--border-light));
+	--border-dark: oklch(56.25% 0.0049 17.3);
+	--border-light: oklch(92.19% 0 0);
+
+	color-scheme: light dark;
+}
+
+.light {
+	color-scheme: light;
+}
+
+.dark {
+	color-scheme: dark;
+}

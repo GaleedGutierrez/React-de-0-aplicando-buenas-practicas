@@ -1,0 +1,77 @@
+.a-button {
+	inline-size: 100%;
+	padding-block: var(--space-3);
+	border-radius: var(--border-radius-2);
+	font-weight: var(--weight-semibold);
+
+	&:disabled {
+		opacity: 0.4;
+		pointer-events: none;
+	}
+
+	&:focus-visible {
+		outline: var(--space-1) solid;
+		outline-offset: var(--space-2);
+	}
+}
+
+.a-button-primary {
+	background-color: light-dark(
+		var(--color-primary),
+		var(--color-primary-bright-purple)
+	);
+	color: light-dark(var(--text-color-light), var(--text-color-dark));
+
+	&:hover {
+		@media (hover: hover) {
+			opacity: 0.8;
+		}
+	}
+
+	&:active {
+		background-color: light-dark(
+			var(--color-primary-variant),
+			var(--color-primary)
+		);
+		color: var(--text-color-light);
+		opacity: 1;
+	}
+
+	&:focus-visible {
+		outline-color: light-dark(
+			var(--color-primary),
+			var(--color-primary-bright-purple)
+		);
+	}
+}
+
+.a-button-secondary {
+	border: var(--border-025) solid
+		light-dark(var(--color-primary), var(--color-primary-bright-purple));
+	background-color: transparent;
+	color: light-dark(var(--color-primary), var(--color-primary-bright-purple));
+
+	&:hover {
+		@media (hover: hover) {
+			opacity: 0.6;
+		}
+	}
+
+	&:active {
+		border: var(--border-025) solid
+			light-dark(var(--color-primary), var(--light-bright-purple));
+		background-color: light-dark(
+			var(--color-primary-light),
+			var(--bright-purple-40p)
+		);
+		color: light-dark(var(--color-primary), var(--light-bright-purple));
+		opacity: 1;
+	}
+
+	&:focus-visible {
+		outline-color: light-dark(
+			var(--color-primary),
+			var(--color-primary-bright-purple)
+		);
+	}
+}

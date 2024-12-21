@@ -1,0 +1,36 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"/*": ["public/*"],
+			"@/*": ["src/*"],
+			"@tests/*": ["tests/*"],
+			"@e2e/*": ["e2e/*"],
+			"@public/*": ["public/*"],
+			"@assets/*": ["src/assets/*"],
+			"@components/*": ["src/components/*"],
+			"@context/*": ["src/context/*"],
+			"@data/*": ["src/data/*"],
+			"@guard/*": ["src/guard/*"],
+			"@hooks/*": ["src/hooks/*"],
+			"@icons/*": ["src/components/Icons/*"],
+			"@models/*": ["src/models/*"],
+			"@private/*": ["src/private/*"],
+			"@pages/*": ["src/pages/*"],
+			"@routes/*": ["src/routes/*"],
+			"@services/*": ["src/services/*"],
+			"@state/*": ["src/state/*"],
+			"@templates/*": ["src/templates/*"],
+			"@styles/*": ["src/styles/*"],
+			"@utils/*": ["src/utils/*"],
+			"@views/*": ["src/views/*"],
+			"@images/*": ["src/assets/images/*"]
+		}
+	},
+	"files": [],
+	"exclude": ["node_modules", "dist", "build"],
+	"references": [
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.node.json" }
+	]
+}

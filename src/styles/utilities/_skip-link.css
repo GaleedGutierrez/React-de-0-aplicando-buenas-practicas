@@ -1,0 +1,29 @@
+.is-skip-link {
+	position: absolute;
+	z-index: var(--z-index-9-accessibility);
+	display: inline-block;
+	overflow: hidden;
+	padding: var(--space-4);
+	border-radius: var(--border-2);
+	margin-inline: var(--space-6);
+	margin-block-start: var(--space-6);
+	background-color: light-dark(
+		var(--color-primary),
+		var(--color-primary-bright-purple)
+	);
+	color: light-dark(var(--text-color-light), var(--text-color-dark));
+	font-weight: var(--weight-semibold);
+	transition: transform var(--time-001);
+	transform: translateY(-200%);
+
+	&:focus-visible {
+		--outline-color: light-dark(
+			var(--color-primary),
+			var(--color-primary-bright-purple)
+		);
+
+		outline: var(--border-1) solid var(--outline-color);
+		outline-offset: var(--space-1);
+		transform: translateY(0%);
+	}
+}

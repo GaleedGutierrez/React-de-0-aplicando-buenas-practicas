@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="/vite.svg"
+		/>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<style>
+			/* Your font. E.g.: */
+			/* You can use this guide https://www.debugbear.com/blog/website-font-performance for your font */
+			:root {
+				--font-fallback: Arial, system-ui, -apple-system,
+					blinkmacsystemfont, "Segoe UI", "Noto Sans", helvetica,
+					arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+				--primary-font: "Instrument Sans", var(--font-fallback);
+			}
+
+			/* instrument-sans-regular - latin */
+			@font-face {
+				font-family: "Instrument Sans";
+
+				/* You can find the different name on https://fontdrop.info/ */
+				src:
+					local("Instrument Sans Regular"),
+					local("InstrumentSans-Regular"),
+					url("./src/assets/fonts/instrument-sans-v1-latin/instrument-sans-v1-latin-regular.woff2")
+						format("woff2");
+
+				font-style: normal;
+				font-weight: normal;
+				font-display: fallback; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+				size-adjust: 94%;
+			}
+
+			/* instrument-sans-600 - latin */
+			@font-face {
+				font-family: "Instrument Sans";
+				src:
+					local("Instrument Sans SemiBold"),
+					local("InstrumentSans-SemiBold"),
+					url("./src/assets/fonts/instrument-sans-v1-latin/instrument-sans-v1-latin-600.woff2")
+						format("woff2");
+				font-style: normal;
+				font-weight: 600;
+				font-display: fallback;
+				size-adjust: 94%;
+			}
+
+			/* instrument-sans-700 - latin */
+			@font-face {
+				font-family: "Instrument Sans";
+				src:
+					local("Instrument Sans Bold"),
+					local("InstrumentSans-Bold"),
+					url("./src/assets/fonts/instrument-sans-v1-latin/instrument-sans-v1-latin-700.woff2")
+						format("woff2");
+
+				font-style: normal;
+				font-weight: bold;
+				font-display: fallback;
+				size-adjust: 94%;
+			}
+
+			body {
+				font-family: var(--primary-font);
+			}
+		</style>
+		<title>⚡Vite React ⚛️</title>
+	</head>
+	<body>
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+		<div id="root"></div>
+		<script
+			type="module"
+			src="/src/main.tsx"
+		></script>
+	</body>
+</html>
