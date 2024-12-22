@@ -34,7 +34,7 @@
 			"@data/*": ["src/data/*"],
 			"@guard/*": ["src/guard/*"],
 			"@hooks/*": ["src/hooks/*"],
-			"@icons/*": ["src/components/Icons/*"],
+			"@icons/*": ["src/assets/icons/*"],
 			"@models/*": ["src/models/*"],
 			"@pages/*": ["src/pages/*"],
 			"@private/*": ["src/private/*"],

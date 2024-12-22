@@ -1,0 +1,74 @@
+/* stylelint-disable function-disallowed-list */
+/* stylelint-disable color-no-hex */
+.header {
+	background-color: #1a2233;
+}
+
+.header__container {
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	max-width: 1200px;
+	padding: 1rem;
+	margin: 0 auto;
+}
+
+.app__brand {
+	color: #3cff64;
+	font-style: italic;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 1rem;
+	inline-size: 100%;
+	max-inline-size: 120rem;
+	padding: 1rem;
+	margin: 0 auto;
+}
+
+.widget {
+	display: flex;
+	flex-direction: column;
+	background-color: #1a2233;
+	color: white;
+	filter: drop-shadow(10px 10px 20px rgb(0 0 0 / 25%));
+}
+
+.widget__status {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.widget__body {
+	flex: 1;
+	padding: 0.5rem;
+}
+
+.widget__description {
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.widget__footer {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 0.5rem;
+}
+
+.widget__stat {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.widget__stat span {
+	margin-left: 0.25rem;
+}

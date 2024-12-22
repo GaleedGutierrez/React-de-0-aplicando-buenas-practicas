@@ -1,5 +1,5 @@
 {
-	"cSpell.words": ["tseslint"],
+	"cSpell.words": ["devdash", "tseslint"],
 	"oxc_language_server.configPath": "${workspaceFolder}/oxlintrc.json",
 	"workbench.colorCustomizations": {
 		"activityBar.activeBackground": "#93e6fc",
