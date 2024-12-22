@@ -1,0 +1,19 @@
+/* stylelint-disable function-disallowed-list */
+/* stylelint-disable color-no-hex */
+
+.widget__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem;
+	background-color: #3cff64;
+}
+
+.widget__title {
+	overflow: hidden;
+	color: #1a2233;
+	font-weight: bold;
+	white-space: nowrap;
+	text-decoration: none;
+	text-overflow: ellipsis;
+}

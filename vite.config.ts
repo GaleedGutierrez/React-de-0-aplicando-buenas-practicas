@@ -3,11 +3,22 @@ import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5';
+import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
 	plugins: [
 		react(),
+		svgr({
+			// svgr options: https://react-svgr.com/docs/options/
+			svgrOptions: {
+				exportType: 'default',
+				ref: true,
+				svgo: false,
+				titleProp: true,
+			},
+			include: '**/*.svg',
+		}),
 		pluginPurgeCss({
 			variables: true,
 		}),
@@ -30,7 +41,7 @@ export default defineConfig(() => ({
 			'@guard': fileURLToPath(new URL('src/guard/', import.meta.url)),
 			'@hooks': fileURLToPath(new URL('src/hooks/', import.meta.url)),
 			'@icons': fileURLToPath(
-				new URL('src/components/Icons/', import.meta.url),
+				new URL('src/assets/icons/', import.meta.url),
 			),
 			'@models': fileURLToPath(new URL('src/models/', import.meta.url)),
 			'@pages': fileURLToPath(new URL('src/pages/', import.meta.url)),
