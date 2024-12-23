@@ -29,6 +29,11 @@ function fetchDataWrapPromise<T>(
 			if (error instanceof Error) {
 				throw new TypeError(error.message);
 			}
+		})
+		.finally(() => {
+			if (!options.controller) {
+				CONTROLLER.abort();
+			}
 		});
 
 	return wrapPromise(PROMISE);

@@ -1,7 +1,12 @@
 import Check from '@icons/check.svg';
 import Error from '@icons/error.svg';
+import PullRequests from '@icons/git-pull-request.svg';
+import IssueOpened from '@icons/issue-opened.svg';
 import Lock from '@icons/lock.svg';
+import Forks from '@icons/repo-forked.svg';
+import Star from '@icons/star.svg';
 import Unlock from '@icons/unlock.svg';
+import Watchers from '@icons/watchers.svg';
 import { JSX } from 'react';
 
 import { GithubActions } from '@/models/githubActions.model';
@@ -16,6 +21,12 @@ interface Properties {
 	isPrivate: boolean;
 	githubActions: GithubActions;
 	date: string;
+	description: string;
+	stargazersCount: number;
+	forksCount: number;
+	openIssuesCount: number;
+	pullRequest: unknown[];
+	watchersCount: number;
 }
 
 export const Card = ({
@@ -25,8 +36,14 @@ export const Card = ({
 	isPrivate,
 	githubActions,
 	date,
+	description,
+	stargazersCount,
+	forksCount,
+	openIssuesCount,
+	pullRequest,
+	watchersCount,
 }: Properties): JSX.Element => (
-	<article>
+	<article className={styles.widget}>
 		<header className={styles.widget__header}>
 			<a
 				className={styles.widget__title}
@@ -39,12 +56,41 @@ export const Card = ({
 			</a>
 			{isPrivate ? <Lock /> : <Unlock />}
 		</header>
-		<p>Last update {isoToReadableDate(date)}</p>
-		{githubActions.workflow_runs.length > 0 &&
-			(githubActions.workflow_runs[0].status === 'completed' ? (
-				<Check />
-			) : (
-				<Error />
-			))}
+
+		<main>
+			<div>
+				<p>Last update {isoToReadableDate(date)}</p>
+				{githubActions.workflow_runs.length > 0 &&
+					(githubActions.workflow_runs[0].status === 'completed' ? (
+						<Check />
+					) : (
+						<Error />
+					))}
+			</div>
+			<p className={styles.widget__description}>{description}</p>
+		</main>
+
+		<footer className={styles.widget__footer}>
+			<div className={styles.widget__stat}>
+				<Star />
+				<p>{stargazersCount}</p>
+			</div>
+			<div className={styles.widget__stat}>
+				<Watchers />
+				<p>{watchersCount}</p>
+			</div>
+			<div className={styles.widget__stat}>
+				<Forks />
+				<span>{forksCount}</span>
+			</div>
+			<div className={styles.widget__stat}>
+				<IssueOpened />
+				<span>{openIssuesCount}</span>
+			</div>
+			<div className={styles.widget__stat}>
+				<PullRequests />
+				<span>{pullRequest.length}</span>
+			</div>
+		</footer>
 	</article>
 );

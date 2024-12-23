@@ -1,6 +1,6 @@
 type CustomProperties = unknown;
 
-interface License {
+export interface License {
 	key: string;
 	name: string;
 	node_id: string;
@@ -8,44 +8,37 @@ interface License {
 	url: string;
 }
 
-interface Organization {
+export interface Permissions {
+	admin: boolean;
+	maintain: boolean;
+	push: boolean;
+	triage: boolean;
+	pull: boolean;
+}
+
+export interface Owner {
+	login: string;
+	id: number;
+	node_id: string;
 	avatar_url: string;
-	events_url: string;
+	gravatar_id: string;
+	url: string;
+	html_url: string;
 	followers_url: string;
 	following_url: string;
 	gists_url: string;
-	gravatar_id: string;
-	html_url: string;
-	id: number;
-	login: string;
-	node_id: string;
-	organizations_url: string;
-	received_events_url: string;
-	repos_url: string;
-	site_admin: boolean;
 	starred_url: string;
 	subscriptions_url: string;
+	organizations_url: string;
+	repos_url: string;
+	events_url: string;
+	received_events_url: string;
 	type: string;
-	url: string;
+	site_admin: boolean;
 	user_view_type: string;
 }
 
-export interface GithubRepository {
-	allow_forking: boolean;
-	archive_url: string;
-	archived: boolean;
-	assignees_url: string;
-	blobs_url: string;
-	branches_url: string;
-	clone_url: string;
-	collaborators_url: string;
-	comments_url: string;
-	commits_url: string;
-	compare_url: string;
-	contents_url: string;
-	contributors_url: string;
-	created_at: Date;
-	custom_properties: CustomProperties;
+export interface CommonRepo {
 	default_branch: string;
 	deployments_url: string;
 	description: string;
@@ -66,6 +59,25 @@ export interface GithubRepository {
 	has_issues: boolean;
 	has_pages: boolean;
 	has_projects: boolean;
+}
+
+export interface GithubRepository extends CommonRepo {
+	permissions: Permissions;
+	allow_forking: boolean;
+	archive_url: string;
+	archived: boolean;
+	assignees_url: string;
+	blobs_url: string;
+	branches_url: string;
+	clone_url: string;
+	collaborators_url: string;
+	comments_url: string;
+	commits_url: string;
+	compare_url: string;
+	contents_url: string;
+	contributors_url: string;
+	created_at: string;
+	custom_properties: CustomProperties;
 	has_wiki: boolean;
 	homepage: string;
 	hooks_url: string;
@@ -89,11 +101,11 @@ export interface GithubRepository {
 	notifications_url: string;
 	open_issues: number;
 	open_issues_count: number;
-	organization: Organization;
-	owner: Organization;
+	organization: Owner;
+	owner: Owner;
 	private: boolean;
 	pulls_url: string;
-	pushed_at: Date;
+	pushed_at: string;
 	releases_url: string;
 	size: number;
 	ssh_url: string;
@@ -106,10 +118,10 @@ export interface GithubRepository {
 	svn_url: string;
 	tags_url: string;
 	teams_url: string;
-	temp_clone_token: null;
+	temp_clone_token: string;
 	topics: string[];
 	trees_url: string;
-	updated_at: Date;
+	updated_at: string;
 	url: string;
 	visibility: string;
 	watchers: number;

@@ -1,3 +1,5 @@
+import { CommonRepo, Owner } from './githubRepository.model';
+
 export enum DefaultBranch {
 	Main = 'main',
 	Master = 'master',
@@ -79,65 +81,11 @@ export interface License {
 	url: string;
 }
 
-export interface User {
-	avatar_url: string;
-	events_url: string;
-	followers_url: string;
-	following_url: string;
-	gists_url: string;
-	gravatar_id: string;
-	html_url: string;
-	id: number;
-	login: string;
-	node_id: string;
-	organizations_url: string;
-	received_events_url: string;
-	repos_url: string;
-	site_admin: boolean;
-	starred_url: string;
-	subscriptions_url: string;
-	type: Type;
-	url: string;
-	user_view_type: UserViewType;
-}
+export type User = Owner;
 
-export interface Repo {
-	allow_forking: boolean;
-	archive_url: string;
-	archived: boolean;
-	assignees_url: string;
-	blobs_url: string;
-	branches_url: string;
-	clone_url: string;
-	collaborators_url: string;
-	comments_url: string;
-	commits_url: string;
-	compare_url: string;
-	contents_url: string;
-	contributors_url: string;
-	created_at: Date;
+export interface Repo extends CommonRepo {
 	default_branch: DefaultBranch;
 	deployments_url: string;
-	description: Description | null;
-	disabled: boolean;
-	downloads_url: string;
-	events_url: string;
-	fork: boolean;
-	forks: number;
-	forks_count: number;
-	forks_url: string;
-	full_name: string;
-	git_commits_url: string;
-	git_refs_url: string;
-	git_tags_url: string;
-	git_url: string;
-	has_discussions: boolean;
-	has_downloads: boolean;
-	has_issues: boolean;
-	has_pages: boolean;
-	has_projects: boolean;
-	has_wiki: boolean;
-	homepage: null | string;
 	hooks_url: string;
 	html_url: string;
 	id: number;
@@ -231,7 +179,7 @@ export interface Milestone {
 	url: string;
 }
 
-export interface GithubPullRequests {
+export interface GithubPullRequest {
 	_links: Links;
 	active_lock_reason: null;
 	assignee: null;
