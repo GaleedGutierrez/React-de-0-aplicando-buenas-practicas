@@ -1,4 +1,4 @@
-interface Resource<T> {
+export interface Resource<T> {
 	read(): T;
 }
 
@@ -25,24 +25,16 @@ function wrapPromise<T>(promise: Promise<T>): Resource<T> {
 
 	return {
 		read(): T {
-			switch (status) {
-				case Status.PENDING: {
-					// eslint-disable-next-line @typescript-eslint/only-throw-error
-					throw SUSPENDER;
-				}
-
-				case Status.ERROR: {
-					throw myError;
-				}
-
-				case Status.SUCCESS: {
-					return result;
-				}
-
-				default: {
-					throw new Error('This should be unreachable');
-				}
+			if (status === Status.PENDING) {
+				// eslint-disable-next-line @typescript-eslint/only-throw-error
+				throw SUSPENDER;
 			}
+
+			if (status === Status.ERROR) {
+				throw myError;
+			}
+
+			return result;
 		},
 	};
 }

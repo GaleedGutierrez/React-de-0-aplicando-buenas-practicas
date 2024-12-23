@@ -1,11 +1,13 @@
+import wrapPromise, { Resource } from './wrapPromise';
+
 interface FetchProperties extends RequestInit {
 	controller?: AbortController;
 }
 
-async function fetchData<T>(
+async function customFetch<T>(
 	url: string,
 	options: FetchProperties = {},
-): Promise<T | undefined> {
+): Promise<T | void> {
 	const CONTROLLER = options.controller ?? new AbortController();
 
 	try {
@@ -15,7 +17,7 @@ async function fetchData<T>(
 		});
 
 		if (!RESPONSE.ok) {
-			throw new Error('Error fetching data');
+			throw new Error(`Failed to fetch ${RESPONSE.url}`);
 		}
 
 		return (await RESPONSE.json()) as T;
@@ -24,6 +26,22 @@ async function fetchData<T>(
 			throw new TypeError(error.message);
 		}
 	}
+}
+
+async function fetchData<T>(
+	url: string,
+	options: FetchProperties = {},
+	isWrapped = false,
+): Promise<T | void | Resource<T | void>> {
+	if (isWrapped) {
+		return wrapPromise(
+			customFetch(url, {
+				...options,
+			}),
+		);
+	}
+
+	return customFetch<T>(url, { ...options });
 }
 
 export default fetchData;

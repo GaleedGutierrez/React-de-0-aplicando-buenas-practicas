@@ -49,7 +49,6 @@
 		"no-lonely-if": "error",
 		"no-var": "error",
 		"radix": "error",
-		"require-await": "error",
 
 		// TypeScript rules
 		"typescript/no-confusing-non-null-assertion": "error",

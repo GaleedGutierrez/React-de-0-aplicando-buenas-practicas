@@ -52,6 +52,10 @@ const useFetchList = <T>(
 			}
 		} finally {
 			setIsLoading(false);
+
+			if (!options.controller) {
+				CONTROLLER.abort();
+			}
 		}
 	};
 
