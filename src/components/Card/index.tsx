@@ -9,64 +9,46 @@ import Unlock from '@icons/unlock.svg';
 import Watchers from '@icons/watchers.svg';
 import { JSX } from 'react';
 
-import { GithubActions } from '@/models/githubActions.model';
-import { GithubPullRequest } from '@/models/githubPullRequests.model';
+import { GithubRepository } from '@/models/domain/GithubRepository.model';
 import { isoToReadableDate } from '@/utils/isoToReadableDate';
 
 import styles from './index.module.css';
 
-interface Properties {
-	login: string;
-	name: string;
-	htmlUrl: string;
-	isPrivate: boolean;
-	githubActions: GithubActions;
-	date: string;
-	description: string;
-	stargazersCount: number;
-	forksCount: number;
-	openIssuesCount: number;
-	pullRequests: GithubPullRequest[];
-	watchersCount: number;
-}
+type Properties = GithubRepository;
 
 export const Card = ({
-	login,
-	name,
-	htmlUrl,
-	isPrivate,
-	githubActions,
-	date,
+	id,
+	url,
 	description,
-	stargazersCount,
-	forksCount,
-	openIssuesCount,
+	isPrivate,
+	updatedAt,
+	hasWorkflows,
+	isLastWorkflowSuccess,
+	stars,
+	watchers,
+	forks,
+	issues,
 	pullRequests,
-	watchersCount,
 }: Properties): JSX.Element => (
 	<article className={styles.widget}>
 		<header className={styles.widget__header}>
 			<a
 				className={styles.widget__title}
-				href={htmlUrl}
+				href={url}
 				rel="noreferrer"
 				target="_blank"
-				title={`${login}/${name}`}
+				title={`${id.organization}/${id.name}`}
 			>
-				{login}/{name}
+				{id.organization}/{id.name}
 			</a>
 			{isPrivate ? <Lock /> : <Unlock />}
 		</header>
 
 		<main>
 			<div>
-				<p>Last update {isoToReadableDate(date)}</p>
-				{githubActions.workflow_runs.length > 0 &&
-					(githubActions.workflow_runs[0].status === 'completed' ? (
-						<Check />
-					) : (
-						<Error />
-					))}
+				<p>Last update {isoToReadableDate(updatedAt)}</p>
+				{hasWorkflows &&
+					(isLastWorkflowSuccess ? <Check /> : <Error />)}
 			</div>
 			<p className={styles.widget__description}>{description}</p>
 		</main>
@@ -74,23 +56,23 @@ export const Card = ({
 		<footer className={styles.widget__footer}>
 			<div className={styles.widget__stat}>
 				<Star />
-				<p>{stargazersCount}</p>
+				<p>{stars}</p>
 			</div>
 			<div className={styles.widget__stat}>
 				<Watchers />
-				<p>{watchersCount}</p>
+				<p>{watchers}</p>
 			</div>
 			<div className={styles.widget__stat}>
 				<Forks />
-				<span>{forksCount}</span>
+				<span>{forks}</span>
 			</div>
 			<div className={styles.widget__stat}>
 				<IssueOpened />
-				<span>{openIssuesCount}</span>
+				<span>{issues}</span>
 			</div>
 			<div className={styles.widget__stat}>
 				<PullRequests />
-				<span>{pullRequests.length}</span>
+				<span>{pullRequests}</span>
 			</div>
 		</footer>
 	</article>

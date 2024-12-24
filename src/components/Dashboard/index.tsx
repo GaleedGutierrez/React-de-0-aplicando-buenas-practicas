@@ -4,7 +4,7 @@ import { JSX, useEffect, useState } from 'react';
 
 import { config } from '@/devdash.config';
 import { GithubApiGithubRepositoryRepository } from '@/infrastructure/GithubApiGithubRepositoryRepository';
-import { GithubApiResponse } from '@/models/githubApiResponse.model';
+import { GithubRepository } from '@/models/domain/GithubRepository.model';
 
 import styles from './index.module.css';
 
@@ -13,7 +13,7 @@ const REPOSITORY = new GithubApiGithubRepositoryRepository(
 );
 
 export const Dashboard = (): JSX.Element => {
-	const [repositories, setRepositories] = useState<GithubApiResponse[]>([]);
+	const [repositories, setRepositories] = useState<GithubRepository[]>([]);
 
 	useEffect(() => {
 		const URLS = config.widgets.map((widget) => widget.repositoryUrl);
@@ -39,41 +39,23 @@ export const Dashboard = (): JSX.Element => {
 				{repositories.length === 0 ? (
 					<p>No hay widgets configurados</p>
 				) : (
-					repositories.map((widget) => {
-						const {
-							organization,
-							name,
-							html_url: htmlUrl,
-							private: isPrivate,
-							id,
-							updated_at: updatedAt,
-							description,
-							stargazers_count: stargazersCount,
-							watchers_count: watchersCount,
-							forks_count: forksCount,
-							open_issues_count: openIssuesCount,
-						} = widget.repositoryData;
-						const { ciStatus } = widget;
-						const { pullRequests } = widget;
-
-						return (
-							<Card
-								key={id}
-								date={updatedAt}
-								description={description}
-								forksCount={forksCount}
-								githubActions={ciStatus}
-								htmlUrl={htmlUrl}
-								isPrivate={isPrivate}
-								login={organization.login}
-								name={name}
-								openIssuesCount={openIssuesCount}
-								pullRequests={pullRequests}
-								stargazersCount={stargazersCount}
-								watchersCount={watchersCount}
-							/>
-						);
-					})
+					repositories.map((widget) => (
+						<Card
+							key={`${widget.id.organization}-${widget.id.name}`}
+							description={widget.description}
+							forks={widget.forks}
+							hasWorkflows={widget.hasWorkflows}
+							id={widget.id}
+							isLastWorkflowSuccess={widget.isLastWorkflowSuccess}
+							isPrivate={widget.isPrivate}
+							issues={widget.issues}
+							pullRequests={widget.pullRequests}
+							stars={widget.stars}
+							updatedAt={widget.updatedAt}
+							url={widget.url}
+							watchers={widget.watchers}
+						/>
+					))
 				)}
 			</section>
 		</>

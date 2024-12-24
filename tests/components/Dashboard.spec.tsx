@@ -2,8 +2,8 @@ import { Dashboard } from '@components/Dashboard';
 import { act, render, screen } from '@testing-library/react';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
-import { githubApiResponses } from '@/data/githubApiResponses';
 import { GithubApiGithubRepositoryRepository } from '@/infrastructure/GithubApiGithubRepositoryRepository';
+import { GithubRepository } from '@/models/domain/GithubRepository.model';
 
 // Mock the entire module
 vi.mock(import('@/infrastructure/GithubApiGithubRepositoryRepository'), () => {
@@ -18,33 +18,35 @@ vi.mock(import('@/infrastructure/GithubApiGithubRepositoryRepository'), () => {
 
 describe('Dashboard Component', () => {
 	let mockRepository: GithubApiGithubRepositoryRepository;
+	let mockGithubRepository: GithubRepository;
 
 	beforeEach(() => {
 		mockRepository = new GithubApiGithubRepositoryRepository('fake-token');
-	});
-
-	it('renders a no results message when no repositories are found', async () => {
-		(mockRepository.search as Mock).mockResolvedValue(Promise.resolve([]));
-
-		act(() => {
-			render(<Dashboard />);
-		});
-
-		const noResultsMessage = await screen.findByText(
-			/No hay widgets configurados/,
-		);
-
-		expect(noResultsMessage).toBeInTheDocument();
+		mockGithubRepository = {
+			id: {
+				organization: 'CodelyTV',
+				name: 'dotly',
+			},
+			description: '🌚 Modular and easy to customize dotfiles framework',
+			url: 'https://github.com/CodelyTV/dotly',
+			isPrivate: true,
+			forks: 132,
+			hasWorkflows: true,
+			isLastWorkflowSuccess: false,
+			stars: 4000,
+			issues: 12,
+			pullRequests: 1,
+			updatedAt: new Date(),
+			watchers: 134,
+		};
 	});
 
 	it('renders all widgets when repositories are available', async () => {
 		(mockRepository.search as Mock).mockResolvedValue(
-			Promise.resolve(githubApiResponses),
+			Promise.resolve([mockGithubRepository]),
 		);
 
-		act(() => {
-			render(<Dashboard />);
-		});
+		render(<Dashboard />);
 
 		// Validate the main heading
 		const dashboardTitle = await screen.findByRole('heading', {
@@ -61,17 +63,28 @@ describe('Dashboard Component', () => {
 		expect(firstWidgetLink).toBeInTheDocument();
 	});
 
-	it('show last modified date in human readable format', async () => {
-		const mockedResponse = [...githubApiResponses];
+	it('renders a no results message when no repositories are found', async () => {
+		(mockRepository.search as Mock).mockResolvedValue(Promise.resolve([]));
 
-		// eslint-disable-next-line camelcase
-		mockedResponse[0].repositoryData.updated_at = new Date().toISOString();
+		act(() => {
+			render(<Dashboard />);
+		});
 
-		(mockRepository.search as Mock).mockResolvedValue(
-			Promise.resolve(githubApiResponses),
+		const noResultsMessage = await screen.findByText(
+			/No hay widgets configurados/,
 		);
 
-		render(<Dashboard />);
+		expect(noResultsMessage).toBeInTheDocument();
+	});
+
+	it('show last modified date in human readable format', async () => {
+		(mockRepository.search as Mock).mockResolvedValue(
+			Promise.resolve([mockGithubRepository]),
+		);
+
+		act(() => {
+			render(<Dashboard />);
+		});
 
 		const MODIFICATION_DATE = await screen.findByText(/today/);
 
