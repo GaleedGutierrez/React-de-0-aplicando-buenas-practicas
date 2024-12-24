@@ -1,11 +1,10 @@
 import { Card } from '@components/Card';
 import Brand from '@icons/brand.svg';
-import { JSX, Suspense, useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 
 import { config } from '@/devdash.config';
-import ErrorBoundary from '@/ErrorBoundary';
 import { GithubApiGithubRepositoryRepository } from '@/infrastructure/GithubApiGithubRepositoryRepository';
-import { GithubApiResponse } from '@/models/GithubApiResponse.model';
+import { GithubApiResponse } from '@/models/githubApiResponse.model';
 
 import styles from './index.module.css';
 
@@ -13,7 +12,7 @@ const REPOSITORY = new GithubApiGithubRepositoryRepository(
 	config.GITHUB_ACCESS_TOKEN,
 );
 
-const DashboardComponent = (): JSX.Element => {
+export const Dashboard = (): JSX.Element => {
 	const [repositories, setRepositories] = useState<GithubApiResponse[]>([]);
 
 	useEffect(() => {
@@ -37,50 +36,46 @@ const DashboardComponent = (): JSX.Element => {
 				</section>
 			</header>
 			<section className={styles.container}>
-				{repositories.map((widget) => {
-					const {
-						organization,
-						name,
-						html_url: htmlUrl,
-						private: isPrivate,
-						id,
-						updated_at: updatedAt,
-						description,
-						stargazers_count: stargazersCount,
-						watchers_count: watchersCount,
-						forks_count: forksCount,
-						open_issues_count: openIssuesCount,
-					} = widget.repositoryData;
-					const { ciStatus } = widget;
-					const { pullRequest } = widget;
+				{repositories.length === 0 ? (
+					<p>No hay widgets configurados</p>
+				) : (
+					repositories.map((widget) => {
+						const {
+							organization,
+							name,
+							html_url: htmlUrl,
+							private: isPrivate,
+							id,
+							updated_at: updatedAt,
+							description,
+							stargazers_count: stargazersCount,
+							watchers_count: watchersCount,
+							forks_count: forksCount,
+							open_issues_count: openIssuesCount,
+						} = widget.repositoryData;
+						const { ciStatus } = widget;
+						const { pullRequests } = widget;
 
-					return (
-						<Card
-							key={id}
-							date={updatedAt}
-							description={description}
-							forksCount={forksCount}
-							githubActions={ciStatus}
-							htmlUrl={htmlUrl}
-							isPrivate={isPrivate}
-							login={organization.login}
-							name={name}
-							openIssuesCount={openIssuesCount}
-							pullRequest={pullRequest}
-							stargazersCount={stargazersCount}
-							watchersCount={watchersCount}
-						/>
-					);
-				})}
+						return (
+							<Card
+								key={id}
+								date={updatedAt}
+								description={description}
+								forksCount={forksCount}
+								githubActions={ciStatus}
+								htmlUrl={htmlUrl}
+								isPrivate={isPrivate}
+								login={organization.login}
+								name={name}
+								openIssuesCount={openIssuesCount}
+								pullRequests={pullRequests}
+								stargazersCount={stargazersCount}
+								watchersCount={watchersCount}
+							/>
+						);
+					})
+				)}
 			</section>
 		</>
 	);
 };
-
-export const Dashboard = (): JSX.Element => (
-	<Suspense fallback={<h2>Loading...</h2>}>
-		<ErrorBoundary fallback={<h2>Something went wrong</h2>}>
-			<DashboardComponent />
-		</ErrorBoundary>
-	</Suspense>
-);

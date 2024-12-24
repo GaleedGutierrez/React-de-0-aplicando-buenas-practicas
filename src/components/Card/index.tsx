@@ -10,6 +10,7 @@ import Watchers from '@icons/watchers.svg';
 import { JSX } from 'react';
 
 import { GithubActions } from '@/models/githubActions.model';
+import { GithubPullRequest } from '@/models/githubPullRequests.model';
 import { isoToReadableDate } from '@/utils/isoToReadableDate';
 
 import styles from './index.module.css';
@@ -25,7 +26,7 @@ interface Properties {
 	stargazersCount: number;
 	forksCount: number;
 	openIssuesCount: number;
-	pullRequest: unknown[];
+	pullRequests: GithubPullRequest[];
 	watchersCount: number;
 }
 
@@ -40,7 +41,7 @@ export const Card = ({
 	stargazersCount,
 	forksCount,
 	openIssuesCount,
-	pullRequest,
+	pullRequests,
 	watchersCount,
 }: Properties): JSX.Element => (
 	<article className={styles.widget}>
@@ -89,7 +90,7 @@ export const Card = ({
 			</div>
 			<div className={styles.widget__stat}>
 				<PullRequests />
-				<span>{pullRequest.length}</span>
+				<span>{pullRequests.length}</span>
 			</div>
 		</footer>
 	</article>

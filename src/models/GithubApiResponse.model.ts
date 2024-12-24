@@ -4,6 +4,6 @@ import { GithubRepository } from './githubRepository.model';
 
 export interface GithubApiResponse {
 	repositoryData: GithubRepository;
-	pullRequest: GithubPullRequest[];
+	pullRequests: GithubPullRequest[];
 	ciStatus: GithubActions;
 }

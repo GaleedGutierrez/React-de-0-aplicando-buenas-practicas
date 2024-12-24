@@ -1,6 +1,5 @@
-import { GithubApiResponse } from '@models/GithubApiResponse.model';
-
-import fetchData from '@/utils/fetchData';
+import { GithubApiResponse } from '@models/githubApiResponse.model';
+import fetchData from '@utils/fetchData';
 
 interface RepositoryId {
 	organization: string;
@@ -50,7 +49,7 @@ export class GithubApiGithubRepositoryRepository {
 		);
 
 		try {
-			const [repositoryData, pullRequest, ciStatus] = (await Promise.all(
+			const [repositoryData, pullRequests, ciStatus] = (await Promise.all(
 				URLS.map((url) =>
 					fetchData(url, {
 						headers: {
@@ -60,13 +59,13 @@ export class GithubApiGithubRepositoryRepository {
 				),
 			)) as [
 				GithubApiResponse['repositoryData'],
-				GithubApiResponse['pullRequest'],
+				GithubApiResponse['pullRequests'],
 				GithubApiResponse['ciStatus'],
 			];
 
 			return {
 				repositoryData,
-				pullRequest,
+				pullRequests,
 				ciStatus,
 			};
 		} catch (error) {

@@ -25,7 +25,8 @@
 			"@utils/*": ["src/utils/*"],
 			"@views/*": ["src/views/*"],
 			"@images/*": ["src/assets/images/*"]
-		}
+		},
+		"types": ["vitest/globals", "@vitest/browser/providers/playwright"]
 	},
 	"files": [],
 	"exclude": ["node_modules", "dist", "build"],
