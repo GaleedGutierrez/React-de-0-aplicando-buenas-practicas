@@ -1,52 +1,25 @@
 import { Dashboard } from '@components/Dashboard';
 import { act, render, screen } from '@testing-library/react';
-import { describe, expect, it, Mock, vi } from 'vitest';
+import { GithubRepositoryMother } from '@tests/GithubRepositoryMother';
+import { describe, expect, it } from 'vitest';
+import { mock } from 'vitest-mock-extended';
 
-import { GithubApiGithubRepositoryRepository } from '@/infrastructure/GithubApiGithubRepositoryRepository';
-import { GithubRepository } from '@/models/domain/GithubRepository.model';
+import { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 // Mock the entire module
-vi.mock(import('@/infrastructure/GithubApiGithubRepositoryRepository'), () => {
-	const MOCK_SEARCH = vi.fn();
-
-	return {
-		GithubApiGithubRepositoryRepository: vi.fn().mockImplementation(() => ({
-			search: MOCK_SEARCH,
-		})),
-	};
-});
+const MOCK_REPOSITORY = mock<GitHubRepositoryRepository>();
 
 describe('Dashboard Component', () => {
-	let mockRepository: GithubApiGithubRepositoryRepository;
-	let mockGithubRepository: GithubRepository;
-
-	beforeEach(() => {
-		mockRepository = new GithubApiGithubRepositoryRepository('fake-token');
-		mockGithubRepository = {
+	it('renders all widgets when repositories are available', async () => {
+		const MOCK_GITHUB_REPOSITORY = GithubRepositoryMother.create({
 			id: {
 				organization: 'CodelyTV',
 				name: 'dotly',
 			},
-			description: '🌚 Modular and easy to customize dotfiles framework',
-			url: 'https://github.com/CodelyTV/dotly',
-			isPrivate: true,
-			forks: 132,
-			hasWorkflows: true,
-			isLastWorkflowSuccess: false,
-			stars: 4000,
-			issues: 12,
-			pullRequests: 1,
-			updatedAt: new Date(),
-			watchers: 134,
-		};
-	});
+		});
 
-	it('renders all widgets when repositories are available', async () => {
-		(mockRepository.search as Mock).mockResolvedValue(
-			Promise.resolve([mockGithubRepository]),
-		);
-
-		render(<Dashboard />);
+		MOCK_REPOSITORY.search.mockResolvedValue([MOCK_GITHUB_REPOSITORY]);
+		render(<Dashboard repository={MOCK_REPOSITORY} />);
 
 		// Validate the main heading
 		const dashboardTitle = await screen.findByRole('heading', {
@@ -64,10 +37,9 @@ describe('Dashboard Component', () => {
 	});
 
 	it('renders a no results message when no repositories are found', async () => {
-		(mockRepository.search as Mock).mockResolvedValue(Promise.resolve([]));
-
+		MOCK_REPOSITORY.search.mockResolvedValue([]);
 		act(() => {
-			render(<Dashboard />);
+			render(<Dashboard repository={MOCK_REPOSITORY} />);
 		});
 
 		const noResultsMessage = await screen.findByText(
@@ -78,12 +50,13 @@ describe('Dashboard Component', () => {
 	});
 
 	it('show last modified date in human readable format', async () => {
-		(mockRepository.search as Mock).mockResolvedValue(
-			Promise.resolve([mockGithubRepository]),
-		);
+		const MOCK_GITHUB_REPOSITORY = GithubRepositoryMother.create({
+			updatedAt: new Date(),
+		});
 
+		MOCK_REPOSITORY.search.mockResolvedValue([MOCK_GITHUB_REPOSITORY]);
 		act(() => {
-			render(<Dashboard />);
+			render(<Dashboard repository={MOCK_REPOSITORY} />);
 		});
 
 		const MODIFICATION_DATE = await screen.findByText(/today/);

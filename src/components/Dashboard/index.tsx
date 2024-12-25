@@ -3,28 +3,30 @@ import Brand from '@icons/brand.svg';
 import { JSX, useEffect, useState } from 'react';
 
 import { config } from '@/devdash.config';
-import { GithubApiGithubRepositoryRepository } from '@/infrastructure/GithubApiGithubRepositoryRepository';
-import { GithubRepository } from '@/models/domain/GithubRepository.model';
+import { GitHubRepository } from '@/models/domain/GitHubRepository.model';
+import { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 import styles from './index.module.css';
 
-const REPOSITORY = new GithubApiGithubRepositoryRepository(
-	config.GITHUB_ACCESS_TOKEN,
-);
+interface Properties {
+	repository: GitHubRepositoryRepository;
+}
 
-export const Dashboard = (): JSX.Element => {
-	const [repositories, setRepositories] = useState<GithubRepository[]>([]);
+export const Dashboard = ({ repository }: Properties): JSX.Element => {
+	const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
 
 	useEffect(() => {
 		const URLS = config.widgets.map((widget) => widget.repositoryUrl);
 
-		REPOSITORY.search(URLS)
+		repository
+			.search(URLS)
 			.then((repositories) => {
 				setRepositories(repositories);
 			})
 			.catch((error) => {
 				console.error(error);
 			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

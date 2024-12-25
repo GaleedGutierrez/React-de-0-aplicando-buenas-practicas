@@ -3,7 +3,7 @@ export interface RepositoryId {
 	name: string;
 }
 
-export interface GithubRepository {
+export interface GitHubRepository {
 	id: RepositoryId;
 	url: string;
 	description: string;

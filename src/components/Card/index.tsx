@@ -9,12 +9,12 @@ import Unlock from '@icons/unlock.svg';
 import Watchers from '@icons/watchers.svg';
 import { JSX } from 'react';
 
-import { GithubRepository } from '@/models/domain/GithubRepository.model';
+import { GitHubRepository } from '@/models/domain/GitHubRepository.model';
 import { isoToReadableDate } from '@/utils/isoToReadableDate';
 
 import styles from './index.module.css';
 
-type Properties = GithubRepository;
+type Properties = GitHubRepository;
 
 export const Card = ({
 	id,

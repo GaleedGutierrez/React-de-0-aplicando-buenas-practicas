@@ -61,7 +61,7 @@ export interface CommonRepo {
 	has_projects: boolean;
 }
 
-export interface GithubRepository extends CommonRepo {
+export interface GitHubRepository extends CommonRepo {
 	permissions: Permissions;
 	allow_forking: boolean;
 	archive_url: string;

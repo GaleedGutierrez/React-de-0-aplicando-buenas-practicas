@@ -1,9 +1,9 @@
-import { GithubActions } from '../githubActions.model';
-import { GithubPullRequest } from '../githubPullRequests.model';
-import { GithubRepository } from '../githubRepository.model';
+import { GitHubActions } from '../GitHubActions.model';
+import { GitHubPullRequest } from '../GitHubPullRequests.model';
+import { GitHubRepository } from '../GitHubRepository.model';
 
-export interface GithubApiResponse {
-	repositoryData: GithubRepository;
-	pullRequests: GithubPullRequest[];
-	ciStatus: GithubActions;
+export interface GitHubApiResponse {
+	repositoryData: GitHubRepository;
+	pullRequests: GitHubPullRequest[];
+	ciStatus: GitHubActions;
 }

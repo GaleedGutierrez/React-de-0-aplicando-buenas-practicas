@@ -1,4 +1,4 @@
-import { CommonRepo, Owner } from './githubRepository.model';
+import { CommonRepo, Owner } from './GitHubRepository.model';
 
 export enum DefaultBranch {
 	Main = 'main',
@@ -179,7 +179,7 @@ export interface Milestone {
 	url: string;
 }
 
-export interface GithubPullRequest {
+export interface GitHubPullRequest {
 	_links: Links;
 	active_lock_reason: null;
 	assignee: null;

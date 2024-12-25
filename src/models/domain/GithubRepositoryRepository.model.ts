@@ -1,5 +1,5 @@
-import { GithubRepository } from '@/models/domain/GithubRepository.model';
+import { GitHubRepository } from '@/models/domain/GitHubRepository.model';
 
-export interface GithubRepositoryRepository {
-	search(repositoryUrls: string[]): Promise<GithubRepository[]>;
+export interface GitHubRepositoryRepository {
+	search(repositoryUrls: string[]): Promise<GitHubRepository[]>;
 }

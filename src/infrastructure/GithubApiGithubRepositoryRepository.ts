@@ -1,16 +1,16 @@
 import fetchData from '@utils/fetchData';
 
-import { GithubRepository } from '@/models/domain/GithubRepository.model';
-import { GithubRepositoryRepository } from '@/models/domain/GithubRepositoryRepository.model';
-import { GithubApiResponse } from '@/models/infrastructure/githubApiResponse.model';
+import { GitHubRepository } from '@/models/domain/GitHubRepository.model';
+import { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
+import { GitHubApiResponse } from '@/models/infrastructure/GitHubApiResponse.model';
 
 interface RepositoryId {
 	organization: string;
 	name: string;
 }
 
-export class GithubApiGithubRepositoryRepository
-	implements GithubRepositoryRepository
+export class GitHubApiGithubRepositoryRepository
+	implements GitHubRepositoryRepository
 {
 	readonly #endpoints = [
 		'https://api.github.com/repos/$organization/$name',
@@ -23,7 +23,7 @@ export class GithubApiGithubRepositoryRepository
 		this.#personalAccessToken = personalAccessToken;
 	}
 
-	async search(repositoryUrls: string[]): Promise<GithubRepository[]> {
+	async search(repositoryUrls: string[]): Promise<GitHubRepository[]> {
 		const RESPONSE_PROMISE = repositoryUrls
 			.map((url) => this.#urlToId(url))
 			.map((id) => this.#searchById(id));
@@ -46,7 +46,7 @@ export class GithubApiGithubRepositoryRepository
 		};
 	}
 
-	async #searchById(id: RepositoryId): Promise<GithubRepository> {
+	async #searchById(id: RepositoryId): Promise<GitHubRepository> {
 		const URLS = this.#endpoints.map((endpoint) =>
 			endpoint
 				.replace('$organization', id.organization)
@@ -63,9 +63,9 @@ export class GithubApiGithubRepositoryRepository
 					}),
 				),
 			)) as [
-				GithubApiResponse['repositoryData'],
-				GithubApiResponse['pullRequests'],
-				GithubApiResponse['ciStatus'],
+				GitHubApiResponse['repositoryData'],
+				GitHubApiResponse['pullRequests'],
+				GitHubApiResponse['ciStatus'],
 			];
 
 			return {

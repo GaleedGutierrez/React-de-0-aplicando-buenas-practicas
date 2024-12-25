@@ -43,6 +43,7 @@
 		"@eslint/compat": "^1.2.4",
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.17.0",
+		"@faker-js/faker": "^9.3.0",
 		"@playwright/test": "^1.49.1",
 		"@stylistic/eslint-plugin": "^2.9.0",
 		"@testing-library/dom": "^10.4.0",
@@ -103,7 +104,8 @@
 		"vite": "^6.0.4",
 		"vite-plugin-purgecss-updated-v5": "^1.2.4",
 		"vite-plugin-svgr": "^4.3.0",
-		"vitest": "^2.1.8"
+		"vitest": "^2.1.8",
+		"vitest-mock-extended": "^2.0.2"
 	},
 	"browserslist": {
 		"production": [
