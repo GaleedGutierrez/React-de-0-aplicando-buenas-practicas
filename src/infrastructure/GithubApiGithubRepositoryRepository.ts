@@ -1,13 +1,10 @@
+import {
+	GitHubRepository,
+	RepositoryId,
+} from '@models/domain/GitHubRepository.model';
+import { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
+import { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
 import fetchData from '@utils/fetchData';
-
-import { GitHubRepository } from '@/models/domain/GitHubRepository.model';
-import { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
-import { GitHubApiResponse } from '@/models/infrastructure/GitHubApiResponse.model';
-
-interface RepositoryId {
-	organization: string;
-	name: string;
-}
 
 export class GitHubApiGithubRepositoryRepository
 	implements GitHubRepositoryRepository
@@ -41,6 +38,7 @@ export class GitHubApiGithubRepositoryRepository
 		}
 
 		return {
+			value: `${organization}/${name}`,
 			name,
 			organization,
 		};
@@ -70,6 +68,7 @@ export class GitHubApiGithubRepositoryRepository
 
 			return {
 				id: {
+					value: `${repositoryData.organization.login}/${repositoryData.name}`,
 					name: repositoryData.name,
 					organization: repositoryData.organization.login,
 				},

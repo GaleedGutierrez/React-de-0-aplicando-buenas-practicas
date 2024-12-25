@@ -1,4 +1,5 @@
 export interface RepositoryId {
+	value: string;
 	organization: string;
 	name: string;
 }

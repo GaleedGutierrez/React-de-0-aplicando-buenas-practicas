@@ -8,6 +8,10 @@
 	filter: drop-shadow(10px 10px 20px rgb(0 0 0 / 25%));
 }
 
+.widget main {
+	padding: var(--space-3);
+}
+
 .widget__header {
 	display: flex;
 	justify-content: space-between;
@@ -48,5 +52,4 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	padding: 0.5rem;
 }

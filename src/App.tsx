@@ -1,6 +1,5 @@
 import { JSX, useEffect } from 'react';
 
-import styles from './App.module.css';
 import { Dashboard } from './components/Dashboard';
 import { config } from './devdash.config';
 import { GitHubApiGithubRepositoryRepository } from './infrastructure/GitHubApiGithubRepositoryRepository';
@@ -14,9 +13,5 @@ export function App(): JSX.Element {
 		document.body.classList.add('light');
 	}, []);
 
-	return (
-		<main className={`${styles['g-app']} max-width-desktop`}>
-			<Dashboard repository={REPOSITORY} />
-		</main>
-	);
+	return <Dashboard repository={REPOSITORY} />;
 }

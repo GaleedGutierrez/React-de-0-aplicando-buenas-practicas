@@ -1,10 +1,10 @@
 import { Card } from '@components/Card';
 import Brand from '@icons/brand.svg';
+import { GitHubRepository } from '@models/domain/GitHubRepository.model';
+import { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
 import { JSX, useEffect, useState } from 'react';
 
 import { config } from '@/devdash.config';
-import { GitHubRepository } from '@/models/domain/GitHubRepository.model';
-import { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 import styles from './index.module.css';
 
@@ -26,8 +26,7 @@ export const Dashboard = ({ repository }: Properties): JSX.Element => {
 			.catch((error) => {
 				console.error(error);
 			});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [repository]);
 
 	return (
 		<>
@@ -43,19 +42,8 @@ export const Dashboard = ({ repository }: Properties): JSX.Element => {
 				) : (
 					repositories.map((widget) => (
 						<Card
-							key={`${widget.id.organization}-${widget.id.name}`}
-							description={widget.description}
-							forks={widget.forks}
-							hasWorkflows={widget.hasWorkflows}
-							id={widget.id}
-							isLastWorkflowSuccess={widget.isLastWorkflowSuccess}
-							isPrivate={widget.isPrivate}
-							issues={widget.issues}
-							pullRequests={widget.pullRequests}
-							stars={widget.stars}
-							updatedAt={widget.updatedAt}
-							url={widget.url}
-							watchers={widget.watchers}
+							key={`${widget.id.value}`}
+							widget={widget}
 						/>
 					))
 				)}
