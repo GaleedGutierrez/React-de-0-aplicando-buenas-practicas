@@ -13,6 +13,7 @@ describe('Dashboard Component', () => {
 	it('renders all widgets when repositories are available', async () => {
 		const MOCK_GITHUB_REPOSITORY = GithubRepositoryMother.create({
 			id: {
+				value: 'CodelyTV/dotly',
 				organization: 'CodelyTV',
 				name: 'dotly',
 			},
