@@ -1,13 +1,14 @@
-import { GithubApiResponse } from '@models/GithubApiResponse.model';
+import {
+	GitHubRepository,
+	RepositoryId,
+} from '@models/domain/GitHubRepository.model';
+import { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
+import { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
+import fetchData from '@utils/fetchData';
 
-import fetchData from '@/utils/fetchData';
-
-interface RepositoryId {
-	organization: string;
-	name: string;
-}
-
-export class GithubApiGithubRepositoryRepository {
+export class GitHubApiGithubRepositoryRepository
+	implements GitHubRepositoryRepository
+{
 	readonly #endpoints = [
 		'https://api.github.com/repos/$organization/$name',
 		'https://api.github.com/repos/$organization/$name/pulls',
@@ -19,7 +20,7 @@ export class GithubApiGithubRepositoryRepository {
 		this.#personalAccessToken = personalAccessToken;
 	}
 
-	async search(repositoryUrls: string[]): Promise<GithubApiResponse[]> {
+	async search(repositoryUrls: string[]): Promise<GitHubRepository[]> {
 		const RESPONSE_PROMISE = repositoryUrls
 			.map((url) => this.#urlToId(url))
 			.map((id) => this.#searchById(id));
@@ -37,12 +38,13 @@ export class GithubApiGithubRepositoryRepository {
 		}
 
 		return {
+			value: `${organization}/${name}`,
 			name,
 			organization,
 		};
 	}
 
-	async #searchById(id: RepositoryId): Promise<GithubApiResponse> {
+	async #searchById(id: RepositoryId): Promise<GitHubRepository> {
 		const URLS = this.#endpoints.map((endpoint) =>
 			endpoint
 				.replace('$organization', id.organization)
@@ -50,7 +52,7 @@ export class GithubApiGithubRepositoryRepository {
 		);
 
 		try {
-			const [repositoryData, pullRequest, ciStatus] = (await Promise.all(
+			const [repositoryData, pullRequests, ciStatus] = (await Promise.all(
 				URLS.map((url) =>
 					fetchData(url, {
 						headers: {
@@ -59,15 +61,31 @@ export class GithubApiGithubRepositoryRepository {
 					}),
 				),
 			)) as [
-				GithubApiResponse['repositoryData'],
-				GithubApiResponse['pullRequest'],
-				GithubApiResponse['ciStatus'],
+				GitHubApiResponse['repositoryData'],
+				GitHubApiResponse['pullRequests'],
+				GitHubApiResponse['ciStatus'],
 			];
 
 			return {
-				repositoryData,
-				pullRequest,
-				ciStatus,
+				id: {
+					value: `${repositoryData.organization.login}/${repositoryData.name}`,
+					name: repositoryData.name,
+					organization: repositoryData.organization.login,
+				},
+				url: repositoryData.url,
+				description: repositoryData.description,
+				isPrivate: repositoryData.private,
+				updatedAt: new Date(repositoryData.updated_at),
+				hasWorkflows: ciStatus.workflow_runs.length > 0,
+				isLastWorkflowSuccess:
+					ciStatus.workflow_runs.length > 0 &&
+					ciStatus.workflow_runs[0].status === 'completed' &&
+					ciStatus.workflow_runs[0].conclusion === 'success',
+				stars: repositoryData.stargazers_count,
+				watchers: repositoryData.watchers_count,
+				forks: repositoryData.forks_count,
+				issues: repositoryData.open_issues_count,
+				pullRequests: pullRequests.length,
 			};
 		} catch (error) {
 			console.error('Error fetching repository data:', error);

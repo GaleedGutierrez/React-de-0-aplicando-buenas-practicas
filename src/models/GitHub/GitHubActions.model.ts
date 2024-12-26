@@ -1,4 +1,4 @@
-import { GithubRepository, Owner } from './githubRepository.model';
+import { GitHubRepository, Owner } from './GitHubRepository.model';
 
 type Actor = Owner;
 
@@ -29,7 +29,7 @@ export interface WorkflowRun {
 	event: string;
 	head_branch: string;
 	head_commit: HeadCommit;
-	head_repository: GithubRepository;
+	head_repository: GitHubRepository;
 	head_sha: string;
 	html_url: string;
 	id: number;
@@ -41,7 +41,7 @@ export interface WorkflowRun {
 	previous_attempt_url: null;
 	pull_requests: unknown[];
 	referenced_workflows: unknown[];
-	repository: GithubRepository;
+	repository: GitHubRepository;
 	rerun_url: string;
 	run_attempt: number;
 	run_number: number;
@@ -54,7 +54,7 @@ export interface WorkflowRun {
 	workflow_url: string;
 }
 
-export interface GithubActions {
+export interface GitHubActions {
 	total_count: number;
 	workflow_runs: WorkflowRun[];
 }

@@ -47,13 +47,17 @@
 			"@views/*": ["src/views/*"],
 			"@images/*": ["src/assets/images/*"]
 		},
-		"types": ["vite/client"]
+		"types": [
+			"vite/client",
+			"vitest/globals",
+			"@vitest/browser/providers/playwright"
+		]
 	},
 	"include": [
 		"src",
 		"tests",
 		"**/*.ts",
-		"jest.config.js",
+		"tests/setup.ts",
 		"e2e",
 		"src/ErrorBoundary.tsx"
 	]

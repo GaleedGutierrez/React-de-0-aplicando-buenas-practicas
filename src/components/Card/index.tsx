@@ -7,90 +7,78 @@ import Forks from '@icons/repo-forked.svg';
 import Star from '@icons/star.svg';
 import Unlock from '@icons/unlock.svg';
 import Watchers from '@icons/watchers.svg';
+import { GitHubRepository } from '@models/domain/GitHubRepository.model';
+import { isoToReadableDate } from '@utils/isoToReadableDate';
 import { JSX } from 'react';
-
-import { GithubActions } from '@/models/githubActions.model';
-import { isoToReadableDate } from '@/utils/isoToReadableDate';
 
 import styles from './index.module.css';
 
 interface Properties {
-	login: string;
-	name: string;
-	htmlUrl: string;
-	isPrivate: boolean;
-	githubActions: GithubActions;
-	date: string;
-	description: string;
-	stargazersCount: number;
-	forksCount: number;
-	openIssuesCount: number;
-	pullRequest: unknown[];
-	watchersCount: number;
+	widget: GitHubRepository;
 }
 
-export const Card = ({
-	login,
-	name,
-	htmlUrl,
-	isPrivate,
-	githubActions,
-	date,
-	description,
-	stargazersCount,
-	forksCount,
-	openIssuesCount,
-	pullRequest,
-	watchersCount,
-}: Properties): JSX.Element => (
-	<article className={styles.widget}>
-		<header className={styles.widget__header}>
-			<a
-				className={styles.widget__title}
-				href={htmlUrl}
-				rel="noreferrer"
-				target="_blank"
-				title={`${login}/${name}`}
-			>
-				{login}/{name}
-			</a>
-			{isPrivate ? <Lock /> : <Unlock />}
-		</header>
+export const Card = ({ widget }: Properties): JSX.Element => {
+	const {
+		description,
+		forks,
+		hasWorkflows,
+		id,
+		isLastWorkflowSuccess,
+		isPrivate,
+		issues,
+		pullRequests,
+		stars,
+		updatedAt,
+		url,
+		watchers,
+	} = widget;
 
-		<main>
-			<div>
-				<p>Last update {isoToReadableDate(date)}</p>
-				{githubActions.workflow_runs.length > 0 &&
-					(githubActions.workflow_runs[0].status === 'completed' ? (
-						<Check />
-					) : (
-						<Error />
-					))}
-			</div>
-			<p className={styles.widget__description}>{description}</p>
-		</main>
+	return (
+		<article className={styles.widget}>
+			<header className={styles.widget__header}>
+				<a
+					className={styles.widget__title}
+					href={url}
+					rel="noreferrer"
+					target="_blank"
+					title={`${id.value}`}
+				>
+					{id.value}
+				</a>
+				{isPrivate ? <Lock /> : <Unlock />}
+			</header>
 
-		<footer className={styles.widget__footer}>
-			<div className={styles.widget__stat}>
-				<Star />
-				<p>{stargazersCount}</p>
-			</div>
-			<div className={styles.widget__stat}>
-				<Watchers />
-				<p>{watchersCount}</p>
-			</div>
-			<div className={styles.widget__stat}>
-				<Forks />
-				<span>{forksCount}</span>
-			</div>
-			<div className={styles.widget__stat}>
-				<IssueOpened />
-				<span>{openIssuesCount}</span>
-			</div>
-			<div className={styles.widget__stat}>
-				<PullRequests />
-				<span>{pullRequest.length}</span>
-			</div>
-		</footer>
-	</article>
-);
+			<main>
+				<div>
+					<p>Last update {isoToReadableDate(updatedAt)}</p>
+					{hasWorkflows &&
+						(isLastWorkflowSuccess ? <Check /> : <Error />)}
+				</div>
+				<p className={styles.widget__description}>{description}</p>
+			</main>
+
+			<footer className={styles.widget__footer}>
+				<div className={styles.widget__stat}>
+					<Star />
+					<p>{stars}</p>
+				</div>
+				<div className={styles.widget__stat}>
+					<Watchers />
+					<p>{watchers}</p>
+				</div>
+				<div className={styles.widget__stat}>
+					<Forks />
+					<span>{forks}</span>
+				</div>
+				<div className={styles.widget__stat}>
+					<IssueOpened />
+					<span>{issues}</span>
+				</div>
+				<div className={styles.widget__stat}>
+					<PullRequests />
+					<span>{pullRequests}</span>
+				</div>
+			</footer>
+		</article>
+	);
+};

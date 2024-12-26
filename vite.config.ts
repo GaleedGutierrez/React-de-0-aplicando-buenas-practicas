@@ -1,3 +1,6 @@
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
+
 import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react-swc';
@@ -66,6 +69,11 @@ export default defineConfig(() => ({
 		},
 	},
 	test: {
+		// browser: {
+		// 	enabled: true,
+		// 	name: 'chromium',
+		// 	provider: 'playwright',
+		// }, @vitest/browser" is not installed
 		clearMocks: true, // Automatically clear mock calls, instances, contexts and results before every test
 		// If you need coverage, you can enable it here
 		// coverage: {
@@ -75,8 +83,9 @@ export default defineConfig(() => ({
 		// 	include: ['src/**/*'], // The glob patterns Vitest uses to detect test files
 		// },
 		globals: true,
+		css: true,
 		environment: 'jsdom', // The test environment that will be used for testing
-		setupFiles: ['./tests/setupTests.ts'], // A list of paths to modules that run some code to configure or set up the testing framework before each test
+		setupFiles: ['./tests/setup.ts'], // A list of paths to modules that run some code to configure or set up the testing framework before each test
 		include: ['./tests/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
 		// A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
 		alias: {
