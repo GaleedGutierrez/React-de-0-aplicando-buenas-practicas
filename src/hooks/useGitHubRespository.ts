@@ -3,14 +3,10 @@ import { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepos
 import { useEffect, useState } from 'react';
 
 export function useGitHubRepository(
-	repository: GitHubRepositoryRepository | undefined,
+	repository: GitHubRepositoryRepository,
 	repositoryUrls: string[],
 ): { repositories: GitHubRepository[] } {
 	const [repositoryData, setRepositories] = useState<GitHubRepository[]>([]);
-
-	if (!repository) {
-		return { repositories: repositoryData };
-	}
 
 	useEffect(() => {
 		repository

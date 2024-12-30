@@ -3,15 +3,18 @@ import { useGitHubRepository } from '@hooks/useGitHubRespository';
 import Brand from '@icons/brand.svg';
 import { JSX } from 'react';
 
-import { useGlobalContext } from '@/context/global.context';
 import { config } from '@/devdash.config';
+import { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 import styles from './index.module.css';
 
+interface Properties {
+	repository: GitHubRepositoryRepository;
+}
+
 const REPOSITORY_URLS = config.widgets.map((widget) => widget.repositoryUrl);
 
-export const Dashboard = (): JSX.Element => {
-	const { repository } = useGlobalContext();
+export const Dashboard = ({ repository }: Properties): JSX.Element => {
 	const { repositories } = useGitHubRepository(repository, REPOSITORY_URLS);
 
 	return (
