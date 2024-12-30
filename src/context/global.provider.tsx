@@ -1,18 +1,25 @@
 import { JSX, ReactNode, useMemo, useState } from 'react';
 
+import { config } from '@/devdash.config';
+import { GitHubApiGithubRepositoryRepository } from '@/infrastructure/GitHubApiGithubRepositoryRepository';
+
 import { GlobalContext } from './global.context';
 
 interface Properties {
 	children: ReactNode;
 }
 
-const EMPTY_GLOBAL_STATE = 0;
+const REPOSITORY = new GitHubApiGithubRepositoryRepository(
+	config.GITHUB_ACCESS_TOKEN,
+);
 
 const GlobalProvider = ({ children }: Properties): JSX.Element => {
-	const [value, setValue] = useState(EMPTY_GLOBAL_STATE);
+	const [repository, setRepository] =
+		useState<GitHubApiGithubRepositoryRepository>(REPOSITORY);
+
 	const CONTEXT_VALUE = useMemo(
-		() => ({ value, setValue }),
-		[value, setValue],
+		() => ({ repository, setRepository }),
+		[repository, setRepository],
 	);
 
 	return (

@@ -1,21 +1,25 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { createContext, Dispatch, useContext } from 'react';
+import { createContext, Dispatch, SetStateAction, useContext } from 'react';
+
+import { GitHubApiGithubRepositoryRepository } from '@/infrastructure/GitHubApiGithubRepositoryRepository';
 
 interface GlobalContext {
-	value: number | undefined;
-	setValue: Dispatch<React.SetStateAction<number>>;
+	repository: GitHubApiGithubRepositoryRepository | undefined;
+	setRepository: Dispatch<
+		SetStateAction<GitHubApiGithubRepositoryRepository>
+	>;
 }
 
 export const GlobalContext = createContext<GlobalContext>({
-	value: undefined,
-	setValue: () => {},
+	repository: undefined,
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	setRepository: () => {},
 });
 
 export const useGlobalContext = (): GlobalContext => {
 	const CONTEXT = useContext(GlobalContext);
 
-	if (!CONTEXT.value && CONTEXT.value !== 0) {
-		throw new Error(
+	if (!CONTEXT.repository) {
+		throw new TypeError(
 			'GlobalContext must be used within a GlobalContextProvider',
 		);
 	}
