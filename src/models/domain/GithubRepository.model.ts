@@ -1,5 +1,5 @@
 export interface RepositoryId {
-	value: string;
+	value: `${string}/${string}`;
 	organization: string;
 	name: string;
 }

@@ -1,13 +1,15 @@
 import { faker } from '@faker-js/faker';
-
-import { GitHubRepository } from '@/models/domain/GitHubRepository.model';
+import type { GitHubRepository } from '@models/domain/GitHubRepository.model';
 
 export const GithubRepositoryMother = {
 	create(parameters?: Partial<GitHubRepository>): GitHubRepository {
+		const ID_VALUE =
+			`${faker.company.name()}/${faker.word.words()}` as const;
 		const DEFAULT_PARAMETERS: GitHubRepository = {
 			id: {
-				organization: faker.company.name(),
-				name: faker.word.words(),
+				value: ID_VALUE,
+				organization: ID_VALUE.split('/')[0],
+				name: ID_VALUE.split('/')[1],
 			},
 			description: faker.word.words(10),
 			url: faker.internet.url(),

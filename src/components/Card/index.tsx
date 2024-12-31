@@ -7,9 +7,9 @@ import Forks from '@icons/repo-forked.svg';
 import Star from '@icons/star.svg';
 import Unlock from '@icons/unlock.svg';
 import Watchers from '@icons/watchers.svg';
-import { GitHubRepository } from '@models/domain/GitHubRepository.model';
+import type { GitHubRepository } from '@models/domain/GitHubRepository.model';
 import { isoToReadableDate } from '@utils/isoToReadableDate';
-import { JSX } from 'react';
+import type { JSX } from 'react';
 
 import styles from './index.module.css';
 

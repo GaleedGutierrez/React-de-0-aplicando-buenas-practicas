@@ -32,19 +32,30 @@ export default defineConfig(() => ({
 	},
 	resolve: {
 		alias: {
-			'@': fileURLToPath(new URL('src/', import.meta.url)),
+			'@app': fileURLToPath(new URL('app/', import.meta.url)),
 			'@tests': fileURLToPath(new URL('tests/', import.meta.url)),
 			'@e2e': fileURLToPath(new URL('e2e/', import.meta.url)),
+			'@': fileURLToPath(new URL('src/', import.meta.url)),
+			'@application': fileURLToPath(
+				new URL('src/application/', import.meta.url),
+			),
 			'@assets': fileURLToPath(new URL('src/assets/', import.meta.url)),
 			'@components': fileURLToPath(
 				new URL('src/components/', import.meta.url),
 			),
 			'@context': fileURLToPath(new URL('src/context/', import.meta.url)),
 			'@data': fileURLToPath(new URL('src/data/', import.meta.url)),
+			'@domain': fileURLToPath(new URL('src/domain/', import.meta.url)),
 			'@guard': fileURLToPath(new URL('src/guard/', import.meta.url)),
 			'@hooks': fileURLToPath(new URL('src/hooks/', import.meta.url)),
 			'@icons': fileURLToPath(
 				new URL('src/assets/icons/', import.meta.url),
+			),
+			'@images': fileURLToPath(
+				new URL('src/assets/images/', import.meta.url),
+			),
+			'@infrastructure': fileURLToPath(
+				new URL('src/infrastructure/', import.meta.url),
 			),
 			'@models': fileURLToPath(new URL('src/models/', import.meta.url)),
 			'@pages': fileURLToPath(new URL('src/pages/', import.meta.url)),
@@ -54,15 +65,12 @@ export default defineConfig(() => ({
 				new URL('src/services/', import.meta.url),
 			),
 			'@state': fileURLToPath(new URL('src/state/', import.meta.url)),
+			'@styles': fileURLToPath(new URL('src/styles/', import.meta.url)),
 			'@templates': fileURLToPath(
 				new URL('src/templates/', import.meta.url),
 			),
-			'@styles': fileURLToPath(new URL('src/styles/', import.meta.url)),
 			'@utils': fileURLToPath(new URL('src/utils/', import.meta.url)),
 			'@views': fileURLToPath(new URL('src/views/', import.meta.url)),
-			'@images': fileURLToPath(
-				new URL('src/assets/images/', import.meta.url),
-			),
 			'@fonts': fileURLToPath(
 				new URL('src/assets/fonts/', import.meta.url),
 			),

@@ -1,9 +1,9 @@
-import {
+import type {
 	GitHubRepository,
 	RepositoryId,
 } from '@models/domain/GitHubRepository.model';
-import { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
-import { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
+import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
+import type { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
 import fetchData from '@utils/fetchData';
 
 export class GitHubApiGithubRepositoryRepository

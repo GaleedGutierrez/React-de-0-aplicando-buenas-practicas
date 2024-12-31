@@ -1,4 +1,4 @@
-import { GitHubRepository } from './GitHubRepository.model';
+import type { GitHubRepository } from './GitHubRepository.model';
 
 export interface GitHubRepositoryRepository {
 	search(repositoryUrls: string[]): Promise<GitHubRepository[]>;

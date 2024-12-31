@@ -1,6 +1,6 @@
-import { createContext, Dispatch, SetStateAction, useContext } from 'react';
-
-import { GitHubApiGithubRepositoryRepository } from '@/infrastructure/GitHubApiGithubRepositoryRepository';
+import type { GitHubApiGithubRepositoryRepository } from '@infrastructure/GitHubApiGithubRepositoryRepository';
+import type { Dispatch, SetStateAction } from 'react';
+import { createContext, useContext } from 'react';
 
 interface GlobalContext {
 	repository: GitHubApiGithubRepositoryRepository | undefined;

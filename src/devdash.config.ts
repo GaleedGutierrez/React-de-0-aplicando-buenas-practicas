@@ -1,4 +1,4 @@
-import { DevelopmentDashConfig } from './models/Devdash.model';
+import type { DevelopmentDashConfig } from './models/Devdash.model';
 
 export const config: DevelopmentDashConfig = {
 	GITHUB_ACCESS_TOKEN: import.meta.env.VITE_PERSONAL_ACCESS_TOKEN,
