@@ -1,6 +1,6 @@
-import { GitHubActions } from '../GitHub/GitHubActions.model';
-import { GitHubPullRequest } from '../GitHub/GitHubPullRequests.model';
-import { GitHubRepository } from '../GitHub/GitHubRepository.model';
+import { GitHubActions } from '@models/GitHub/GitHubActions.model';
+import { GitHubPullRequest } from '@models/GitHub/GitHubPullRequests.model';
+import { GitHubRepository } from '@models/GitHub/GitHubRepository.model';
 
 export interface GitHubApiResponse {
 	repositoryData: GitHubRepository;

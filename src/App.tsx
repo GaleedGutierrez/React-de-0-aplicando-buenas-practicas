@@ -1,10 +1,10 @@
+import { Dashboard } from '@components/Dashboard';
 import { JSX, useEffect } from 'react';
 
-import { Dashboard } from './components/Dashboard';
 import { config } from './devdash.config';
 import { GitHubApiGithubRepositoryRepository } from './infrastructure/GitHubApiGithubRepositoryRepository';
 
-const REPOSITORY = new GitHubApiGithubRepositoryRepository(
+const RESPOSITORY = new GitHubApiGithubRepositoryRepository(
 	config.GITHUB_ACCESS_TOKEN,
 );
 
@@ -13,5 +13,5 @@ export function App(): JSX.Element {
 		document.body.classList.add('light');
 	}, []);
 
-	return <Dashboard repository={REPOSITORY} />;
+	return <Dashboard repository={RESPOSITORY} />;
 }

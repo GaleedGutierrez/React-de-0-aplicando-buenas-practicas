@@ -1,10 +1,10 @@
 import { Card } from '@components/Card';
+import { useGitHubRepository } from '@hooks/useGitHubRespository';
 import Brand from '@icons/brand.svg';
-import { GitHubRepository } from '@models/domain/GitHubRepository.model';
-import { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
-import { JSX, useEffect, useState } from 'react';
+import { JSX } from 'react';
 
 import { config } from '@/devdash.config';
+import { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 import styles from './index.module.css';
 
@@ -12,21 +12,10 @@ interface Properties {
 	repository: GitHubRepositoryRepository;
 }
 
+const REPOSITORY_URLS = config.widgets.map((widget) => widget.repositoryUrl);
+
 export const Dashboard = ({ repository }: Properties): JSX.Element => {
-	const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
-
-	useEffect(() => {
-		const URLS = config.widgets.map((widget) => widget.repositoryUrl);
-
-		repository
-			.search(URLS)
-			.then((repositories) => {
-				setRepositories(repositories);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}, [repository]);
+	const { repositories } = useGitHubRepository(repository, REPOSITORY_URLS);
 
 	return (
 		<>
@@ -37,16 +26,16 @@ export const Dashboard = ({ repository }: Properties): JSX.Element => {
 				</section>
 			</header>
 			<section className={styles.container}>
-				{repositories.length === 0 ? (
+				{repositories.length === 0 && (
 					<p>No hay widgets configurados</p>
-				) : (
+				)}
+				{repositories.length > 0 &&
 					repositories.map((widget) => (
 						<Card
 							key={`${widget.id.value}`}
 							widget={widget}
 						/>
-					))
-				)}
+					))}
 			</section>
 		</>
 	);
