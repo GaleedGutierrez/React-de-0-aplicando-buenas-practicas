@@ -5,7 +5,7 @@ interface Properties {
 	children: ReactNode;
 }
 
-const RoutesWithNotFound = ({ children }: Properties): JSX.Element => (
+export const RoutesWithNotFound = ({ children }: Properties): JSX.Element => (
 	<Routes>
 		{children}
 		<Route
@@ -18,5 +18,3 @@ const RoutesWithNotFound = ({ children }: Properties): JSX.Element => (
 		/>
 	</Routes>
 );
-
-export default RoutesWithNotFound;

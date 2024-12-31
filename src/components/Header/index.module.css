@@ -1,0 +1,19 @@
+/* stylelint-disable function-disallowed-list */
+/* stylelint-disable color-no-hex */
+.header {
+	background-color: #1a2233;
+}
+
+.header__container {
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	max-width: 1200px;
+	padding: 1rem;
+	margin: 0 auto;
+}
+
+.app__brand {
+	color: #3cff64;
+	font-style: italic;
+}
