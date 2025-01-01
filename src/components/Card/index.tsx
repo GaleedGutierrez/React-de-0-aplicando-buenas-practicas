@@ -29,7 +29,6 @@ export const Card = ({ widget }: Properties): JSX.Element => {
 		pullRequests,
 		stars,
 		updatedAt,
-		url,
 		watchers,
 	} = widget;
 
@@ -38,7 +37,7 @@ export const Card = ({ widget }: Properties): JSX.Element => {
 			<header className={styles.widget__header}>
 				<a
 					className={styles.widget__title}
-					href={url}
+					href={`repository/${id.value}`}
 					rel="noreferrer"
 					target="_blank"
 					title={`${id.value}`}

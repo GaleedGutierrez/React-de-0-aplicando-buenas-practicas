@@ -13,6 +13,8 @@ function wrapPromise<T>(promise: Promise<T>): Resource<T> {
 	let result: T;
 	let myError: Error;
 
+	// debugger;
+
 	const SUSPENDER = promise
 		.then((response) => {
 			status = Status.SUCCESS;
@@ -25,6 +27,8 @@ function wrapPromise<T>(promise: Promise<T>): Resource<T> {
 
 	return {
 		read(): T {
+			// debugger;
+
 			if (status === Status.PENDING) {
 				// eslint-disable-next-line @typescript-eslint/only-throw-error
 				throw SUSPENDER;

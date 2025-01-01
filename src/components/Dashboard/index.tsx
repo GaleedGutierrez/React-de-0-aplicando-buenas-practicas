@@ -17,7 +17,7 @@ export const Dashboard = ({ repository }: Properties): JSX.Element => {
 	const { repositories } = useGitHubRepository(repository, REPOSITORY_URLS);
 
 	return (
-		<section className={styles.container}>
+		<main className={styles.container}>
 			{repositories.length === 0 && <p>No hay widgets configurados</p>}
 			{repositories.length > 0 &&
 				repositories.map((widget) => (
@@ -26,6 +26,6 @@ export const Dashboard = ({ repository }: Properties): JSX.Element => {
 						widget={widget}
 					/>
 				))}
-		</section>
+		</main>
 	);
 };

@@ -1,10 +1,10 @@
-import { Detail } from '@components/Detail';
 import { DashboardFactory } from '@domain/DashboardFactory';
 import { RoutesWithNotFound } from '@routes/NotFoundPage';
 import type { JSX } from 'react';
 import { BrowserRouter, Route } from 'react-router';
 
 import { Header } from './components/Header';
+import { DetailFactory } from './domain/DetailFactory';
 import { AppRoutes } from './models/routes/AppRoutes.model';
 
 export function Router(): JSX.Element {
@@ -20,7 +20,7 @@ export function Router(): JSX.Element {
 						path={AppRoutes.dashboard}
 					/>
 					<Route
-						element={<Detail />}
+						element={DetailFactory.create()}
 						path={AppRoutes.repository}
 					/>
 				</Route>
