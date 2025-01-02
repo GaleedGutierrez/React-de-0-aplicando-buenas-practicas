@@ -3,9 +3,8 @@ import type {
 	RepositoryId,
 } from '@models/domain/GitHubRepository.model';
 import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
+import type { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
 import fetchData from '@utils/fetchData';
-
-import type { GitHubApiResponse } from '@/models/infrastructure/GitHubApiResponse.model';
 
 export class GitHubApiGithubRepositoryRepository
 	implements GitHubRepositoryRepository

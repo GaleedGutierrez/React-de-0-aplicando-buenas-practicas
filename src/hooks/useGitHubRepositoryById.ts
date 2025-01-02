@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react';
+
 import type {
 	GitHubRepository,
 	RepositoryId,
-} from '@models/domain/GitHubRepository.model';
-import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
-import { useEffect, useState } from 'react';
+} from '@/models/domain/GitHubRepository.model';
+import type { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 export function useGitHubRepositoryById(
 	repository: GitHubRepositoryRepository,

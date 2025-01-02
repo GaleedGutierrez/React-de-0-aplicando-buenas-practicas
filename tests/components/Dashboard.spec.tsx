@@ -1,9 +1,10 @@
 import { Dashboard } from '@components/Dashboard';
-import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
 import { act, render, screen } from '@testing-library/react';
 import { GithubRepositoryMother } from '@tests/GithubRepositoryMother';
 import { describe, expect, it } from 'vitest';
 import { mock } from 'vitest-mock-extended';
+
+import type { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 // Mock the entire module
 const MOCK_REPOSITORY = mock<GitHubRepositoryRepository>();
