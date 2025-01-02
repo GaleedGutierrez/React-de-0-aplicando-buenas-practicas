@@ -1,4 +1,4 @@
-import { CommonRepo, Owner } from './GitHubRepository.model';
+import type { CommonRepo, Owner } from './GitHubRepository.model';
 
 export enum DefaultBranch {
 	Main = 'main',

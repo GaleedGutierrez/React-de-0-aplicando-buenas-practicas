@@ -1,4 +1,4 @@
-import { GitHubRepository, Owner } from './GitHubRepository.model';
+import type { GitHubRepository, Owner } from './GitHubRepository.model';
 
 type Actor = Owner;
 

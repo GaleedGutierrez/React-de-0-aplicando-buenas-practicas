@@ -1,4 +1,5 @@
-import wrapPromise, { Resource } from './wrapPromise';
+import type { Resource } from './wrapPromise';
+import wrapPromise from './wrapPromise';
 
 interface FetchProperties extends RequestInit {
 	controller?: AbortController;

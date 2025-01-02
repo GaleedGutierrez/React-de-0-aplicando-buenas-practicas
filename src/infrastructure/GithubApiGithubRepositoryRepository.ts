@@ -1,10 +1,11 @@
-import {
+import type {
 	GitHubRepository,
 	RepositoryId,
 } from '@models/domain/GitHubRepository.model';
-import { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
-import { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
+import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
 import fetchData from '@utils/fetchData';
+
+import type { GitHubApiResponse } from '@/models/infrastructure/GitHubApiResponse.model';
 
 export class GitHubApiGithubRepositoryRepository
 	implements GitHubRepositoryRepository
@@ -18,6 +19,10 @@ export class GitHubApiGithubRepositoryRepository
 
 	constructor(personalAccessToken: string) {
 		this.#personalAccessToken = personalAccessToken;
+	}
+
+	async byId(id: Omit<RepositoryId, 'value'>): Promise<GitHubRepository> {
+		return this.#searchById(id);
 	}
 
 	async search(repositoryUrls: string[]): Promise<GitHubRepository[]> {
@@ -44,7 +49,9 @@ export class GitHubApiGithubRepositoryRepository
 		};
 	}
 
-	async #searchById(id: RepositoryId): Promise<GitHubRepository> {
+	async #searchById(
+		id: Omit<RepositoryId, 'value'>,
+	): Promise<GitHubRepository> {
 		const URLS = this.#endpoints.map((endpoint) =>
 			endpoint
 				.replace('$organization', id.organization)
@@ -52,19 +59,20 @@ export class GitHubApiGithubRepositoryRepository
 		);
 
 		try {
-			const [repositoryData, pullRequests, ciStatus] = (await Promise.all(
-				URLS.map((url) =>
-					fetchData(url, {
-						headers: {
-							Authorization: `Bearer ${this.#personalAccessToken}`,
-						},
-					}),
-				),
-			)) as [
-				GitHubApiResponse['repositoryData'],
-				GitHubApiResponse['pullRequests'],
-				GitHubApiResponse['ciStatus'],
+			const FETCH_URLS = URLS.map((url) =>
+				fetchData(url, {
+					headers: {
+						Authorization: `Bearer ${this.#personalAccessToken}`,
+					},
+				}),
+			) as [
+				Promise<GitHubApiResponse['repositoryData']>,
+				Promise<GitHubApiResponse['pullRequests']>,
+				Promise<GitHubApiResponse['ciStatus']>,
 			];
+
+			const [repositoryData, pullRequests, ciStatus] =
+				await Promise.all(FETCH_URLS);
 
 			return {
 				id: {
@@ -86,6 +94,15 @@ export class GitHubApiGithubRepositoryRepository
 				forks: repositoryData.forks_count,
 				issues: repositoryData.open_issues_count,
 				pullRequests: pullRequests.length,
+				workFlowRunsStatus: ciStatus.workflow_runs.map((run) => ({
+					id: run.id,
+					name: run.name,
+					title: run.display_title,
+					url: run.html_url,
+					createdAt: new Date(run.created_at),
+					status: run.status,
+					conclusion: run.conclusion,
+				})),
 			};
 		} catch (error) {
 			console.error('Error fetching repository data:', error);

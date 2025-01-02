@@ -1,0 +1,52 @@
+/* stylelint-disable color-no-hex */
+.repository-detail {
+	margin: 2.4rem auto;
+}
+
+.repository-detail .header {
+	display: flex;
+	gap: 1rem;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem;
+	background-color: #3cff64;
+}
+
+.repository-detail .header a {
+	color: #1a2233;
+}
+
+.repository-detail .header__title {
+	margin: 0.5rem;
+}
+
+.repository-detail .build {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.repository-detail .detail__table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 1rem;
+	text-align: center;
+}
+
+.repository-detail .detail__table thead tr th {
+	border-bottom: 1px solid black;
+}
+
+.repository-detail .detail__table tbody a {
+	color: inherit;
+}
+
+.repository-detail .detail__table tbody tr:nth-child(odd) {
+	background-color: #1a2233;
+	color: white;
+}
+
+.repository-detail .detail__table tbody tr td {
+	padding: 0.5rem;
+}

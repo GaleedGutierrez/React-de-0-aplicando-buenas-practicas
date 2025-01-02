@@ -1,7 +1,8 @@
-import { JSX, ReactNode, useMemo, useState } from 'react';
+import { GitHubApiGithubRepositoryRepository } from '@infrastructure/GitHubApiGithubRepositoryRepository';
+import type { JSX, ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 
 import { config } from '@/devdash.config';
-import { GitHubApiGithubRepositoryRepository } from '@/infrastructure/GitHubApiGithubRepositoryRepository';
 
 import { GlobalContext } from './global.context';
 
