@@ -1,3 +1,12 @@
+export enum StatusWorkFlow {
+	QUEUED = 'queued',
+	IN_PROGRESS = 'in_progress',
+	COMPLETED = 'completed',
+	WAITING = 'waiting',
+	REQUESTED = 'requested',
+	PENDING = 'pending',
+}
+
 export interface RepositoryId {
 	value: `${string}/${string}`;
 	organization: string;
@@ -9,8 +18,8 @@ export interface WorkFlowRunStatus {
 	title: string;
 	url: string;
 	createdAt: Date;
-	status: string;
-	conclusion: string;
+	status: StatusWorkFlow;
+	conclusion: string | null;
 }
 
 export interface GitHubRepository {

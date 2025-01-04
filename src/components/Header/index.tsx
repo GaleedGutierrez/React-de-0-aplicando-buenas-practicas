@@ -2,6 +2,8 @@ import Brand from '@icons/brand.svg';
 import type { JSX } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { ErrorBoundary } from '@/ErrorBoundary';
+
 import styles from './index.module.css';
 
 export function Header(): JSX.Element {
@@ -13,7 +15,9 @@ export function Header(): JSX.Element {
 					<h1 className={styles.app__brand}>DevDash_</h1>
 				</section>
 			</header>
-			<Outlet />
+			<ErrorBoundary>
+				<Outlet />
+			</ErrorBoundary>
 		</>
 	);
 }

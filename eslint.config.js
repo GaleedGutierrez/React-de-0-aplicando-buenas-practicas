@@ -593,150 +593,6 @@ export default tsEslintConfig(
 		},
 	},
 	{
-		files: ['**/*.tsx'],
-
-		rules: {
-			'@typescript-eslint/no-misused-promises': [
-				'error',
-				{
-					checksVoidReturn: {
-						attributes: false,
-					},
-				},
-			],
-			'@typescript-eslint/member-ordering': [
-				'error',
-				{
-					default: [
-						// Index signature for interfaces
-						'signature',
-						'call-signature',
-
-						// Fields o variables
-						'public-static-field',
-						'protected-static-field',
-						'private-static-field',
-						'#private-static-field',
-
-						'public-instance-field',
-						'protected-instance-field',
-						'private-instance-field',
-						'#private-instance-field',
-
-						'public-decorated-field',
-						'protected-decorated-field',
-						'private-decorated-field',
-
-						'public-abstract-field',
-						'protected-abstract-field',
-
-						'public-field',
-						'protected-field',
-						'private-field',
-						'#private-field',
-
-						'static-field',
-						'instance-field',
-						'decorated-field',
-						'abstract-field',
-
-						// Static initialization
-						'static-initialization',
-
-						'field',
-
-						// Constructors
-						'public-constructor',
-						'protected-constructor',
-						'private-constructor',
-
-						'constructor',
-
-						// Methods
-						'public-static-method',
-						'protected-static-method',
-						'private-static-method',
-						'#private-static-method',
-						'public-instance-method',
-						'protected-instance-method',
-						'private-instance-method',
-						'#private-instance-method',
-						'public-decorated-method',
-						'protected-decorated-method',
-						'private-decorated-method',
-						'public-abstract-method',
-						'protected-abstract-method',
-						'public-method',
-						'protected-method',
-						'private-method',
-						'#private-method',
-						'static-method',
-						'instance-method',
-						'decorated-method',
-						'abstract-method',
-
-						'method',
-
-						// Getters
-						'public-static-get',
-						'protected-static-get',
-						'private-static-get',
-						'#private-static-get',
-						'public-instance-get',
-						'protected-instance-get',
-						'private-instance-get',
-						'#private-instance-get',
-						'public-decorated-get',
-						'protected-decorated-get',
-						'private-decorated-get',
-						'public-abstract-get',
-						'protected-abstract-get',
-						'public-get',
-						'protected-get',
-						'private-get',
-						'#private-get',
-						'static-get',
-						'instance-get',
-						'decorated-get',
-						'abstract-get',
-
-						'get',
-
-						// Setters
-						'public-static-set',
-						'protected-static-set',
-						'private-static-set',
-						'#private-static-set',
-
-						'public-instance-set',
-						'protected-instance-set',
-						'private-instance-set',
-						'#private-instance-set',
-
-						'public-decorated-set',
-						'protected-decorated-set',
-						'private-decorated-set',
-
-						'public-abstract-set',
-						'protected-abstract-set',
-
-						'public-set',
-						'protected-set',
-						'private-set',
-						'#private-set',
-
-						'static-set',
-						'instance-set',
-						'decorated-set',
-						'abstract-set',
-
-						'set',
-					],
-				},
-			],
-		},
-	},
-	{
 		files: ['**/*.jsx'],
 		rules: {
 			'sort-class-members/sort-class-members': [
@@ -771,7 +627,7 @@ export default tsEslintConfig(
 
 		rules: {
 			...reactHooks.configs.recommended.rules,
-
+			'@typescript-eslint/member-ordering': 'off',
 			'react/boolean-prop-naming': [
 				'error',
 				{
@@ -945,57 +801,7 @@ export default tsEslintConfig(
 
 			'@stylistic/jsx-self-closing-comp': 'error',
 
-			'react/sort-comp': [
-				'error',
-				{
-					order: [
-						'static-variables',
-						'static-methods',
-						'instance-variables',
-						'lifecycle',
-						'/^handle.+$/',
-						'/^on.+$/',
-						'getters',
-						'setters',
-						'/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/',
-						'instance-methods',
-						'everything-else',
-						'rendering',
-					],
-
-					groups: {
-						lifecycle: [
-							'displayName',
-							'propTypes',
-							'contextTypes',
-							'childContextTypes',
-							'mixins',
-							'statics',
-							'defaultProps',
-							'constructor',
-							'getDefaultProps',
-							'getInitialState',
-							'state',
-							'getChildContext',
-							'getDerivedStateFromProps',
-							'componentWillMount',
-							'UNSAFE_componentWillMount',
-							'componentDidMount',
-							'componentWillReceiveProps',
-							'UNSAFE_componentWillReceiveProps',
-							'shouldComponentUpdate',
-							'componentWillUpdate',
-							'UNSAFE_componentWillUpdate',
-							'getSnapshotBeforeUpdate',
-							'componentDidUpdate',
-							'componentDidCatch',
-							'componentWillUnmount',
-						],
-
-						rendering: ['/^render.+$/', 'render'],
-					},
-				},
-			],
+			'react/sort-comp': 'error',
 
 			'react/state-in-constructor': ['error', 'always'],
 			'react/static-property-placement': ['error', 'property assignment'],

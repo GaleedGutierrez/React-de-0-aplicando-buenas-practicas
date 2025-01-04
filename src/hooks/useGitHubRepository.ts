@@ -1,6 +1,7 @@
-import type { GitHubRepository } from '@models/domain/GitHubRepository.model';
-import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
 import { useEffect, useState } from 'react';
+
+import type { GitHubRepository } from '@/models/domain/GitHubRepository.model';
+import type { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 export function useGitHubRepository(
 	repository: GitHubRepositoryRepository,

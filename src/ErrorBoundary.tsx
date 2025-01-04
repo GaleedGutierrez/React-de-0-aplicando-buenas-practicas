@@ -1,4 +1,5 @@
-import type { ErrorInfo, ReactNode } from 'react';
+/* eslint-disable react/jsx-handler-names */
+import type { ErrorInfo, JSX, ReactNode } from 'react';
 import { Component } from 'react';
 
 interface ErrorBoundaryState {
@@ -8,39 +9,86 @@ interface ErrorBoundaryState {
 interface ErrorBoundaryProperties {
 	children: ReactNode;
 	fallback?: ReactNode;
+	onError?: (error: Error, errorInfo: ErrorInfo) => void;
 }
 
-class ErrorBoundary extends Component<
+/**
+ * This componente captures errors in the child component tree
+ * and shows an alternative UI when an error occurs.
+ */
+export class ErrorBoundary extends Component<
 	ErrorBoundaryProperties,
 	ErrorBoundaryState
 > {
-	constructor(properties: ErrorBoundaryProperties) {
-		super(properties);
-
-		this.state = { hasError: false };
-	}
-
-	static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-		console.info(`Derived  Error: ${error}`);
+	/**
+	 * Static method that updates the state when an error occurs
+	 */
+	public static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+		// We log the error for debugging
+		console.error('[ErrorBoundary] Error detectado:', error);
 
 		return { hasError: true };
 	}
 
-	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-		console.info(`Error: ${error}`);
-		console.info(`Error info: ${JSON.stringify(errorInfo)}`);
+	constructor(properties: ErrorBoundaryProperties) {
+		super(properties);
+		this.state = { hasError: false };
 	}
 
-	render(): ReactNode {
+	/**
+	 * Method that runs when an error is caught
+	 */
+	public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+		const { onError } = this.props;
+
+		// You can also log the error to an error reporting service
+		console.error('[ErrorBoundary] Error:', {
+			error,
+			componentStack: errorInfo.componentStack,
+		});
+
+		// If there is a custom error handler, we run it
+		if (onError) {
+			onError(error, errorInfo);
+		}
+	}
+
+	/**
+	 * Reset the error state and show the normal content again
+	 */
+	#handleReset(): void {
+		this.setState({ hasError: false });
+	}
+
+	/**
+	 * Default UI when an error occurs
+	 */
+	#defaultErrorUi(): JSX.Element {
+		return (
+			<div className="error-boundary-container">
+				<h1>¡Ups! Algo salió mal</h1>
+				<button
+					className="error-boundary-button"
+					onClick={this.#handleReset.bind(this)}
+				>
+					Volver a intentar
+				</button>
+			</div>
+		);
+	}
+
+	public render(): ReactNode {
 		const { hasError } = this.state;
 		const { children, fallback } = this.props;
 
-		if (hasError) {
-			return fallback ?? <h1>Ops! I did it again ;)</h1>;
+		if (!hasError) {
+			return children;
 		}
 
-		return children;
+		if (fallback) {
+			return fallback;
+		}
+
+		return this.#defaultErrorUi();
 	}
 }
-
-export default ErrorBoundary;

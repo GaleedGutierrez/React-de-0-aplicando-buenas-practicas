@@ -1,9 +1,9 @@
 import { Card } from '@components/Card';
 import { useGitHubRepository } from '@hooks/useGitHubRepository';
-import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
 import type { JSX } from 'react';
 
 import { config } from '@/devdash.config';
+import type { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 import styles from './index.module.css';
 

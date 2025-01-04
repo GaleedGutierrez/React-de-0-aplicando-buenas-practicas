@@ -1,10 +1,14 @@
 import { faker } from '@faker-js/faker';
-import type { GitHubRepository } from '@models/domain/GitHubRepository.model';
+import {
+	type GitHubRepository,
+	StatusWorkFlow,
+} from '@models/domain/GitHubRepository.model';
 
-export const GithubRepositoryMother = {
+export const GitHubRepositoryMother = {
 	create(parameters?: Partial<GitHubRepository>): GitHubRepository {
 		const ID_VALUE =
 			`${faker.company.name()}/${faker.word.words()}` as const;
+
 		const DEFAULT_PARAMETERS: GitHubRepository = {
 			id: {
 				value: ID_VALUE,
@@ -22,6 +26,24 @@ export const GithubRepositoryMother = {
 			pullRequests: faker.number.int(),
 			updatedAt: faker.date.recent(),
 			watchers: faker.number.int(),
+			workFlowRunsStatus: [
+				{
+					id: faker.number.int(),
+					name: faker.word.words(),
+					title: faker.word.words(),
+					url: faker.internet.url(),
+					createdAt: faker.date.recent(),
+					status: faker.helpers.arrayElement([
+						StatusWorkFlow.QUEUED,
+						StatusWorkFlow.IN_PROGRESS,
+						StatusWorkFlow.COMPLETED,
+						StatusWorkFlow.WAITING,
+						StatusWorkFlow.REQUESTED,
+						StatusWorkFlow.PENDING,
+					]),
+					conclusion: faker.word.words(),
+				},
+			],
 			...parameters,
 		};
 

@@ -1,10 +1,11 @@
 import Lock from '@icons/lock.svg';
 import Unlock from '@icons/unlock.svg';
-import type { GitHubRepository } from '@models/domain/GitHubRepository.model';
-import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
 import wrapPromise, { type Resource } from '@utils/wrapPromise';
 import { type JSX, Suspense, useMemo } from 'react';
 import { useParams } from 'react-router';
+
+import type { GitHubRepository } from '@/models/domain/GitHubRepository.model';
+import type { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
 
 import styles from './index.module.css';
 
