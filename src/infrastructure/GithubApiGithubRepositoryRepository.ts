@@ -1,6 +1,7 @@
 import type {
 	GitHubRepository,
 	RepositoryId,
+	StatusWorkFlow,
 } from '@models/domain/GitHubRepository.model';
 import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
 import type { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
@@ -99,7 +100,7 @@ export class GitHubApiGithubRepositoryRepository
 					title: run.display_title,
 					url: run.html_url,
 					createdAt: new Date(run.created_at),
-					status: run.status,
+					status: run.status as StatusWorkFlow,
 					conclusion: run.conclusion,
 				})),
 			};

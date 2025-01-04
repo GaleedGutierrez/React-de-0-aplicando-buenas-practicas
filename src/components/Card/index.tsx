@@ -42,7 +42,7 @@ export const Card = ({ widget }: Properties): JSX.Element => {
 					rel="noreferrer"
 					target="_blank"
 					title={`${id.value}`}
-					to={`repository/${id.value}`}
+					to={`/repository/${id.value}`}
 				>
 					{id.value}
 				</Link>

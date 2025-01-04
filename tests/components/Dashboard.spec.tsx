@@ -1,6 +1,7 @@
 import { Dashboard } from '@components/Dashboard';
-import { act, render, screen } from '@testing-library/react';
-import { GithubRepositoryMother } from '@tests/GithubRepositoryMother';
+import { act, screen } from '@testing-library/react';
+import { GitHubRepositoryMother } from '@tests/mothers/GitHubRepositoryMother';
+import { renderWithRouter } from '@tests/utils/renderWithRouter';
 import { describe, expect, it } from 'vitest';
 import { mock } from 'vitest-mock-extended';
 
@@ -11,36 +12,23 @@ const MOCK_REPOSITORY = mock<GitHubRepositoryRepository>();
 
 describe('Dashboard Component', () => {
 	it('renders all widgets when repositories are available', async () => {
-		const MOCK_GITHUB_REPOSITORY = GithubRepositoryMother.create({
-			id: {
-				value: 'CodelyTV/dotly',
-				organization: 'CodelyTV',
-				name: 'dotly',
-			},
-		});
+		const MOCK_GITHUB_REPOSITORY = GitHubRepositoryMother.create();
 
 		MOCK_REPOSITORY.search.mockResolvedValue([MOCK_GITHUB_REPOSITORY]);
-		render(<Dashboard repository={MOCK_REPOSITORY} />);
+		renderWithRouter(<Dashboard repository={MOCK_REPOSITORY} />);
 
-		// Validate the main heading
-		// const dashboardTitle = await screen.findByRole('heading', {
-		// 	name: /DevDash_/,
-		// });
-
-		// expect(dashboardTitle).toBeInTheDocument();
-
-		// Validate the presence of a specific widget
-		const firstWidgetLink = await screen.findByRole('link', {
-			name: /CodelyTV\/dotly/,
+		const FIRST_WIDGET_TITLE = MOCK_GITHUB_REPOSITORY.id.value;
+		const FIRST_WIDGET_HEADER = await screen.findByRole('heading', {
+			name: FIRST_WIDGET_TITLE,
 		});
 
-		expect(firstWidgetLink).toBeInTheDocument();
+		expect(FIRST_WIDGET_HEADER).toBeInTheDocument();
 	});
 
 	it('renders a no results message when no repositories are found', async () => {
 		MOCK_REPOSITORY.search.mockResolvedValue([]);
 		act(() => {
-			render(<Dashboard repository={MOCK_REPOSITORY} />);
+			renderWithRouter(<Dashboard repository={MOCK_REPOSITORY} />);
 		});
 
 		const noResultsMessage = await screen.findByText(
@@ -51,13 +39,13 @@ describe('Dashboard Component', () => {
 	});
 
 	it('show last modified date in human readable format', async () => {
-		const MOCK_GITHUB_REPOSITORY = GithubRepositoryMother.create({
+		const MOCK_GITHUB_REPOSITORY = GitHubRepositoryMother.create({
 			updatedAt: new Date(),
 		});
 
 		MOCK_REPOSITORY.search.mockResolvedValue([MOCK_GITHUB_REPOSITORY]);
 		act(() => {
-			render(<Dashboard repository={MOCK_REPOSITORY} />);
+			renderWithRouter(<Dashboard repository={MOCK_REPOSITORY} />);
 		});
 
 		const MODIFICATION_DATE = await screen.findByText(/today/);
