@@ -1,11 +1,12 @@
+import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
+import type { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
+import fetchData from '@utils/fetchData';
+
 import type {
 	GitHubRepository,
 	RepositoryId,
 	StatusWorkFlow,
-} from '@models/domain/GitHubRepository.model';
-import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
-import type { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
-import fetchData from '@utils/fetchData';
+} from '@/models/domain/GitHubRepository.model';
 
 export class GitHubApiGithubRepositoryRepository
 	implements GitHubRepositoryRepository

@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker';
+
 import {
 	type GitHubRepository,
 	StatusWorkFlow,
-} from '@models/domain/GitHubRepository.model';
+} from '@/models/domain/GitHubRepository.model';
 
 export const GitHubRepositoryMother = {
 	create(parameters?: Partial<GitHubRepository>): GitHubRepository {
