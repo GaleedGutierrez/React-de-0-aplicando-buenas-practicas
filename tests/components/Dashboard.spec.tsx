@@ -18,7 +18,7 @@ describe('Dashboard Component', () => {
 		renderWithRouter(<Dashboard repository={MOCK_REPOSITORY} />);
 
 		const FIRST_WIDGET_TITLE = MOCK_GITHUB_REPOSITORY.id.value;
-		const FIRST_WIDGET_HEADER = await screen.findByRole('heading', {
+		const FIRST_WIDGET_HEADER = await screen.findByRole('link', {
 			name: FIRST_WIDGET_TITLE,
 		});
 
