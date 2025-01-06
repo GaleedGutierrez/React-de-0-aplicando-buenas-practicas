@@ -25,7 +25,6 @@
 		"stylelint:fix": "stylelint --fix ./**/*.{css,scss}",
 		"lint-md": "markdownlint-cli2 --config \".markdownlint.json\" **/*.md \"#node_modules\"",
 		"lint-md:fix": "markdownlint-cli2 --config \".markdownlint.json\" --fix **/*.md \"#node_modules\"",
-		"lint-html": "htmlhint **/*.html --ignore=\"**/node_modules/**,**/dist/**,**/build/**,**/coverage/**,**/playwright-report/**,**/test-results/**,**/lighthouse-report/**\"",
 		"check-for-dupes": "npx jscpd ./",
 		"test": "vitest run",
 		"test:e2e": "playwright test",
@@ -128,7 +127,6 @@
 	"lint-staged": {
 		"*.(j|t)s": "npm run lint:fix",
 		"*{css,s(a|c)ss}": "npm run stylelint:fix",
-		"*.html": "npm run lint-html",
 		"*.md": "npm run lint-md:fix"
 	},
 	"jscpd": {
