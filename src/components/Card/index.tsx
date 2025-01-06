@@ -48,7 +48,7 @@ export const Card = ({ widget }: Properties): JSX.Element => {
 				{isPrivate ? <Lock /> : <Unlock />}
 			</header>
 
-			<main>
+			<main className={styles.widget__body}>
 				<div>
 					<p>Last update {isoToReadableDate(updatedAt)}</p>
 					{hasWorkflows &&
