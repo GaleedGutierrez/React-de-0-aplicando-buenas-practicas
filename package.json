@@ -91,7 +91,7 @@
 		"jest-transform-stub": "^2.0.0",
 		"jscpd": "^4.0.5",
 		"jsdom": "^25.0.1",
-		"markdownlint-cli2": "^0.16.0",
+		"markdownlint-cli2": "^0.17.1",
 		"oxlint": "^0.15.3",
 		"playwright": "^1.49.1",
 		"prettier": "3.4.2",
