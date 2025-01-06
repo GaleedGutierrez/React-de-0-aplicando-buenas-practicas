@@ -92,7 +92,7 @@
 		"jscpd": "^4.0.5",
 		"jsdom": "^25.0.1",
 		"markdownlint-cli2": "^0.16.0",
-		"oxlint": "^0.15.3",
+		"oxlint": "^0.15.5",
 		"playwright": "^1.49.1",
 		"prettier": "3.4.2",
 		"stylelint": "^16.9.0",
