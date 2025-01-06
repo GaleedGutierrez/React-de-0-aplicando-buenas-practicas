@@ -1,6 +1,5 @@
+import { Detail } from '@components/Detail';
 import type { JSX } from 'react';
-
-import { Detail } from '@/components/Detail';
 
 import { repository } from './repository';
 
