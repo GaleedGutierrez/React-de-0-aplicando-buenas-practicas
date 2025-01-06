@@ -55,7 +55,7 @@
 		"@types/eslint__js": "^8.42.3",
 		"@types/eslint-plugin-jsx-a11y": "^6.10.0",
 		"@types/eslint-plugin-security": "^3.0.0",
-		"@types/node": "^22.10.2",
+		"@types/node": "^22.10.5",
 		"@types/react": "^19.0.2",
 		"@types/react-dom": "^19.0.2",
 		"@vitejs/plugin-react-swc": "^3.7.2",
