@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-handler-names */
 import type { ErrorInfo, JSX, ReactNode } from 'react';
 import { Component } from 'react';
 
@@ -56,20 +55,20 @@ export class ErrorBoundary extends Component<
 	/**
 	 * Reset the error state and show the normal content again
 	 */
-	#handleReset(): void {
+	private handleReset(): void {
 		this.setState({ hasError: false });
 	}
 
 	/**
 	 * Default UI when an error occurs
 	 */
-	#defaultErrorUi(): JSX.Element {
+	private defaultErrorUi(): JSX.Element {
 		return (
 			<div className="error-boundary-container">
 				<h1>¡Ups! Algo salió mal</h1>
 				<button
 					className="error-boundary-button"
-					onClick={this.#handleReset.bind(this)}
+					onClick={this.handleReset.bind(this)}
 				>
 					Volver a intentar
 				</button>
@@ -89,6 +88,6 @@ export class ErrorBoundary extends Component<
 			return fallback;
 		}
 
-		return this.#defaultErrorUi();
+		return this.defaultErrorUi();
 	}
 }

@@ -1,5 +1,4 @@
-import { fixupConfigRules } from '@eslint/compat';
-import { FlatCompat } from '@eslint/eslintrc';
+// import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 import vitest from '@vitest/eslint-plugin';
@@ -27,7 +26,7 @@ import {
 	configs as tseslintConfigs,
 } from 'typescript-eslint';
 
-const compat = new FlatCompat();
+// const compat = new FlatCompat();
 
 export default tsEslintConfig(
 	oxlint.configs['flat/all'],
@@ -53,7 +52,7 @@ export default tsEslintConfig(
 			'**/lighthouse-report/**',
 		],
 	},
-	...fixupConfigRules(compat.extends('plugin:editorconfig/noconflict')),
+	// ...fixupConfigRules(compat.extends('plugin:editorconfig/noconflict')),
 	{
 		extends: [js.configs.recommended],
 		plugins: {
@@ -875,7 +874,7 @@ export default tsEslintConfig(
 			'vitest/no-test-prefixes': 'error',
 		},
 	},
-	...fixupConfigRules(compat.extends('plugin:jest-dom/recommended')),
+	// ...fixupConfigRules(compat.extends('plugin:jest-dom/recommended')),
 	{
 		...playwright.configs['flat/jest-playwright'],
 		files: ['tests/e2e/**'],
