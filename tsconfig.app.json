@@ -23,7 +23,7 @@
 		"verbatimModuleSyntax": true,
 
 		/* Paths */
-		"baseUrl": "./",
+		"baseUrl": ".",
 		"paths": {
 			"/*": ["public/*"],
 			"@public/*": ["public/*"],

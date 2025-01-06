@@ -19,7 +19,9 @@
 		"noFallthroughCasesInSwitch": true,
 
 		"esModuleInterop": true,
-		"verbatimModuleSyntax": true
+		"verbatimModuleSyntax": true,
+
+		"baseUrl": "."
 	},
 	"include": ["vite.config.ts", "vitest.config.ts"]
 }
