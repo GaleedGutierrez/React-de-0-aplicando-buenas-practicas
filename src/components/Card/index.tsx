@@ -7,11 +7,10 @@ import Forks from '@icons/repo-forked.svg';
 import Star from '@icons/star.svg';
 import Unlock from '@icons/unlock.svg';
 import Watchers from '@icons/watchers.svg';
+import type { GitHubRepository } from '@models/domain/GitHubRepository.model';
 import { isoToReadableDate } from '@utils/isoToReadableDate';
 import type { JSX } from 'react';
 import { Link } from 'react-router';
-
-import type { GitHubRepository } from '@/models/domain/GitHubRepository.model';
 
 import styles from './index.module.css';
 
@@ -49,7 +48,7 @@ export const Card = ({ widget }: Properties): JSX.Element => {
 				{isPrivate ? <Lock /> : <Unlock />}
 			</header>
 
-			<main>
+			<main className={styles.widget__body}>
 				<div>
 					<p>Last update {isoToReadableDate(updatedAt)}</p>
 					{hasWorkflows &&

@@ -2,7 +2,7 @@ import Lock from '@icons/lock.svg';
 import Unlock from '@icons/unlock.svg';
 import wrapPromise, { type Resource } from '@utils/wrapPromise';
 import { type JSX, Suspense, useMemo } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 import type { GitHubRepository } from '@/models/domain/GitHubRepository.model';
 import type { GitHubRepositoryRepository } from '@/models/domain/GitHubRepositoryRepository.model';
@@ -13,35 +13,16 @@ interface Properties {
 	repository: GitHubRepositoryRepository;
 }
 
+interface DetailContentProperties {
+	resource: Resource<GitHubRepository>;
+}
+
 interface RepositoryParameters extends Record<string, string> {
 	organization: string;
 	name: string;
 }
 
-export function Detail({ repository }: Properties): JSX.Element {
-	const { organization, name } = useParams() as RepositoryParameters;
-
-	const repositoryId = useMemo(
-		() => ({ organization, name }),
-		[organization, name],
-	);
-
-	const RESOURCE = wrapPromise(repository.byId(repositoryId));
-
-	return (
-		<Suspense fallback={<h1>Loading...</h1>}>
-			{/* <ErrorBoundary fallback={<Navigate to={AppRoutes.error404} />}> */}
-			<DetailContent resource={RESOURCE} />
-			{/* </ErrorBoundary> */}
-		</Suspense>
-	);
-}
-
-function DetailContent({
-	resource,
-}: {
-	resource: Resource<GitHubRepository>;
-}): JSX.Element {
+function DetailContent({ resource }: DetailContentProperties): JSX.Element {
 	const REPOSITORY_DATA = resource.read();
 
 	return (
@@ -117,5 +98,24 @@ function DetailContent({
 				</tbody>
 			</table>
 		</main>
+	);
+}
+
+export function Detail({ repository }: Properties): JSX.Element {
+	const { organization, name } = useParams() as RepositoryParameters;
+
+	const repositoryId = useMemo(
+		() => ({ organization, name }),
+		[organization, name],
+	);
+
+	const RESOURCE = wrapPromise(repository.byId(repositoryId));
+
+	return (
+		<Suspense fallback={<h1>Loading...</h1>}>
+			{/* <ErrorBoundary fallback={<Navigate to={AppRoutes.error404} />}> */}
+			<DetailContent resource={RESOURCE} />
+			{/* </ErrorBoundary> */}
+		</Suspense>
 	);
 }

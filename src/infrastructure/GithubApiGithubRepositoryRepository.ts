@@ -1,39 +1,39 @@
-import type {
-	GitHubRepository,
-	RepositoryId,
-	StatusWorkFlow,
-} from '@models/domain/GitHubRepository.model';
 import type { GitHubRepositoryRepository } from '@models/domain/GitHubRepositoryRepository.model';
 import type { GitHubApiResponse } from '@models/infrastructure/GitHubApiResponse.model';
 import fetchData from '@utils/fetchData';
 
+import type {
+	GitHubRepository,
+	RepositoryId,
+	StatusWorkFlow,
+} from '@/models/domain/GitHubRepository.model';
+
 export class GitHubApiGithubRepositoryRepository
 	implements GitHubRepositoryRepository
 {
-	readonly #endpoints = [
+	private readonly endpoints = [
 		'https://api.github.com/repos/$organization/$name',
 		'https://api.github.com/repos/$organization/$name/pulls',
 		'https://api.github.com/repos/$organization/$name/actions/runs?page=1&per_page=1',
 	];
-	readonly #personalAccessToken: string;
 
-	constructor(personalAccessToken: string) {
-		this.#personalAccessToken = personalAccessToken;
+	constructor(private readonly personalAccessToken: string) {
+		this.personalAccessToken = personalAccessToken;
 	}
 
 	async byId(id: Omit<RepositoryId, 'value'>): Promise<GitHubRepository> {
-		return this.#searchById(id);
+		return this.searchById(id);
 	}
 
 	async search(repositoryUrls: string[]): Promise<GitHubRepository[]> {
 		const RESPONSE_PROMISE = repositoryUrls
-			.map((url) => this.#urlToId(url))
-			.map((id) => this.#searchById(id));
+			.map((url) => this.urlToId(url))
+			.map((id) => this.searchById(id));
 
 		return Promise.all(RESPONSE_PROMISE);
 	}
 
-	#urlToId(url: string): RepositoryId {
+	private urlToId(url: string): RepositoryId {
 		const splitUrl = url.split('/');
 		const name = splitUrl.at(-1);
 		const organization = splitUrl.at(-2);
@@ -49,10 +49,10 @@ export class GitHubApiGithubRepositoryRepository
 		};
 	}
 
-	async #searchById(
+	private async searchById(
 		id: Omit<RepositoryId, 'value'>,
 	): Promise<GitHubRepository> {
-		const URLS = this.#endpoints.map((endpoint) =>
+		const URLS = this.endpoints.map((endpoint) =>
 			endpoint
 				.replace('$organization', id.organization)
 				.replace('$name', id.name),
@@ -62,7 +62,7 @@ export class GitHubApiGithubRepositoryRepository
 			const FETCH_URLS = URLS.map((url) =>
 				fetchData(url, {
 					headers: {
-						Authorization: `Bearer ${this.#personalAccessToken}`,
+						Authorization: `Bearer ${this.personalAccessToken}`,
 					},
 				}),
 			) as [

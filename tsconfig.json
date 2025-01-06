@@ -1,4 +1,10 @@
 {
+	"files": [],
+	"exclude": ["node_modules", "dist", "build"],
+	"references": [
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.node.json" }
+	],
 	"compilerOptions": {
 		"baseUrl": "./",
 		"paths": {
@@ -31,11 +37,5 @@
 			"@views/*": ["src/views/*"]
 		},
 		"types": ["vitest/globals", "@vitest/browser/providers/playwright"]
-	},
-	"files": [],
-	"exclude": ["node_modules", "dist", "build"],
-	"references": [
-		{ "path": "./tsconfig.app.json" },
-		{ "path": "./tsconfig.node.json" }
-	]
+	}
 }

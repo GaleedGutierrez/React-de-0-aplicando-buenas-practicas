@@ -1,0 +1,17 @@
+.widget__header {
+	display: block;
+}
+
+.widget__body {
+	& p:first-child {
+		margin-block: 0.25rem 2rem;
+	}
+
+	& p:nth-child(2) {
+		margin-block-end: 0.65rem;
+	}
+}
+
+.widget__footer {
+	block-size: 2.8rem;
+}
