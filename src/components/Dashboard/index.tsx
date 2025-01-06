@@ -47,7 +47,6 @@ export const Dashboard = ({ repository }: Properties): JSX.Element => {
 				fallback={<CardsSkeleton numberOfWidgets={AMOUNT_OF_WIDGETS} />}
 			>
 				<DashboardContent resource={RESOURCE} />
-				<CardsSkeleton numberOfWidgets={AMOUNT_OF_WIDGETS} />
 			</Suspense>
 		</main>
 	);
