@@ -21,7 +21,7 @@
 		"esModuleInterop": true,
 		"verbatimModuleSyntax": true,
 
-		"baseUrl": "."
+		"baseUrl": "./"
 	},
 	"include": ["vite.config.ts", "vitest.config.ts"]
 }
