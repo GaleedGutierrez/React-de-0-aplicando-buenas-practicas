@@ -1,4 +1,4 @@
-import { GitHubApiGithubRepositoryRepository } from '@infrastructure/GitHubApiGithubRepositoryRepository';
+import { GitHubApiGithubRepositoryRepository } from '@infrastructure/GitHubApiGitHubRepositoryRepository';
 import type { JSX, ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 
